@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { validate } from "../utils/formValidation";
 import styles from "./FormAccessibilityPage.module.css";
 import errorStyles from "../components/ErrorMessage.module.css";
 import TextInput from "../components/TextInput";
@@ -8,81 +9,12 @@ import CheckboxGroup from "../components/CheckboxGroup";
 import RadioGroup from "../components/RadioGroup";
 import TextareaInput from "../components/TextareaInput";
 import ErrorMessage from "../components/ErrorMessage";
-
-const FIELD = {
-  FULL_NAME: "fullName",
-  EMAIL: "email",
-  PASSWORD: "password",
-  JOB_TITLE: "jobTitle",
-  ACCEPTED: "accepted",
-  INTERESTS: "interests",
-  TEAM_SIZE: "teamSize",
-  ADDITIONAL_COMMENTS: "additionalComments",
-};
-
-const validate = (values) => {
-  const errors = {};
-  if (!values.fullName) {
-    errors.fullName = "Full name is required";
-  }
-  if (!values.email) {
-    errors.email = "Email is required";
-  } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-    errors.email =
-      "Oops! That doesn’t look like a valid email. Try again (e.g., name@example.com).";
-  }
-  if (!values.password) {
-    errors.password = "Password is required";
-  } else {
-    const pwd = values.password;
-    const hasMinLen = pwd.length >= 8;
-    const hasUpper = /[A-Z]/.test(pwd);
-    const hasLower = /[a-z]/.test(pwd);
-    const hasNumber = /[0-9]/.test(pwd);
-    const hasSpecial = /[^A-Za-z0-9]/.test(pwd);
-    if (!(hasMinLen && hasUpper && hasLower && hasNumber && hasSpecial)) {
-      errors.password =
-        "Password must be at least 8 characters and include an uppercase letter, a lowercase letter, a number, and a special character.";
-    }
-  }
-  if (!values.jobTitle) {
-    errors.jobTitle = "Please select a job title";
-  }
-  if (!values.accepted) {
-    errors.accepted = "You must accept the terms";
-  }
-  if (!values.interests || values.interests.length === 0) {
-    errors.interests = "Please select at least one interest";
-  }
-  if (!values.teamSize) {
-    errors.teamSize = "Please select a team size";
-  }
-  if (values.additionalComments && values.additionalComments.length > 500) {
-    errors.additionalComments =
-      "Additional comments must be 500 characters or less";
-  }
-  return errors;
-};
-
-const teamSizeOptions = [
-  { value: "1", label: "1 (Solo)" },
-  { value: "2-5", label: "2-5" },
-  { value: "6+", label: "6+" },
-];
-
-const interestOptions = [
-  { value: "tech", label: "Technology" },
-  { value: "design", label: "Design" },
-  { value: "music", label: "Music" },
-];
-
-const jobTitleOptions = [
-  { value: "", label: "Please select your job title" },
-  { value: "developer", label: "Developer" },
-  { value: "designer", label: "Designer" },
-  { value: "manager", label: "Manager" },
-  { value: "qa", label: "QA Engineer" },
-];
+import {
+  teamSizeOptions,
+  interestOptions,
+  jobTitleOptions,
+} from "../constants/formOptions";
+import { FIELD } from "../constants/formFields";
 
 export default function FormAccessibilityPage() {
   const [formData, setFormData] = useState({
@@ -196,16 +128,9 @@ export default function FormAccessibilityPage() {
     <>
       <header className={styles.header}>
         <div className={styles.headerContent}>
-          {/* Company Logo/Name */}
           <div className={styles.logo} aria-label="Company Logo">
-            <img
-              src="/logo.svg"
-              alt="Company Logo"
-              className={styles.logoImg}
-            />
             <span className={styles.companyName}>Acme Events</span>
           </div>
-          {/* Login Button */}
           <button className={styles.loginBtn} type="button">
             Login
           </button>
@@ -214,9 +139,6 @@ export default function FormAccessibilityPage() {
       <main className={styles.main}>
         <h1>User Registration</h1>
         <section aria-labelledby="registrationFormTitle">
-          <h2 id="registrationFormTitle" className={styles["sr-only"]}>
-            Registration Form
-          </h2>
           <form onSubmit={handleSubmit} noValidate className={styles.form}>
             {/* Full Name */}
             <TextInput

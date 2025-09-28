@@ -1,5 +1,7 @@
 .errorSpan {
   margin-top: 0.25rem;
+  min-width: 16px;
+  max-width: 16px;
 }
 
 .errorMsg {

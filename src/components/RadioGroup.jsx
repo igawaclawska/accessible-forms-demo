@@ -9,7 +9,7 @@ export default function RadioGroup({
   onChange,
   onBlur,
   error,
-  name, // add a name prop for uniqueness
+  name,
 }) {
   const groupName = name || label.replace(/\s/g, "").toLowerCase();
 

@@ -1,3 +1,11 @@
 .inputContainer {
   margin-bottom: 1.5em;
 }
+
+.inputContainer select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg fill='none' stroke='black' stroke-width='2' viewBox='0 0 24 24' width='16' height='16' xmlns='http://www.w3.org/2000/svg'><path d='M6 9l6 6 6-6'/></svg>")
+    no-repeat right 0.5rem center/1.2em;
+}
