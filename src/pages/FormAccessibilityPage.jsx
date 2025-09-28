@@ -1,6 +1,24 @@
 import { useState } from "react";
 import styles from "./FormAccessibilityPage.module.css";
-import ErrorIcon from "../components/icons/ErrorIcon";
+import errorStyles from "../components/ErrorMessage.module.css";
+import TextInput from "../components/TextInput";
+import PasswordInput from "../components/PasswordInput";
+import SelectInput from "../components/SelectInput";
+import CheckboxGroup from "../components/CheckboxGroup";
+import RadioGroup from "../components/RadioGroup";
+import TextareaInput from "../components/TextareaInput";
+import ErrorMessage from "../components/ErrorMessage";
+
+const FIELD = {
+  FULL_NAME: "fullName",
+  EMAIL: "email",
+  PASSWORD: "password",
+  JOB_TITLE: "jobTitle",
+  ACCEPTED: "accepted",
+  INTERESTS: "interests",
+  TEAM_SIZE: "teamSize",
+  ADDITIONAL_COMMENTS: "additionalComments",
+};
 
 const validate = (values) => {
   const errors = {};
@@ -141,6 +159,20 @@ export default function FormAccessibilityPage() {
     }
   };
 
+  const handleAdditionalCommentsChange = (e) => {
+    const value = e.target.value.slice(0, 500);
+    setFormData((f) => ({ ...f, additionalComments: value }));
+    if (touched.additionalComments) {
+      setErrors((prev) => ({
+        ...prev,
+        additionalComments: validate({
+          ...formData,
+          additionalComments: value,
+        }).additionalComments,
+      }));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const validationErrors = validate(formData);
@@ -187,291 +219,83 @@ export default function FormAccessibilityPage() {
           </h2>
           <form onSubmit={handleSubmit} noValidate className={styles.form}>
             {/* Full Name */}
-            <div className={styles.inputContainer}>
-              <label htmlFor="fullName">Full Name</label>
-              <input
-                id="fullName"
-                type="text"
-                value={formData.fullName}
-                onChange={handleChange("fullName")}
-                onBlur={handleBlur("fullName")}
-                autoComplete="name"
-                required
-                aria-invalid={!!errors.fullName}
-                aria-describedby={errors.fullName ? "fullNameError" : undefined}
-              />
-              {errors.fullName && (
-                <div
-                  className={styles.errorMsg}
-                  id="fullNameError"
-                  role="alert"
-                  aria-live="polite"
-                >
-                  <span aria-hidden="true">
-                    <ErrorIcon />
-                  </span>
-                  {errors.fullName}
-                </div>
-              )}
-            </div>
-
+            <TextInput
+              id="fullName"
+              label="Full Name"
+              value={formData.fullName}
+              onChange={handleChange(FIELD.FULL_NAME)}
+              onBlur={handleBlur(FIELD.FULL_NAME)}
+              autoComplete="name"
+              required
+              error={errors.fullName}
+            />
             {/* Email */}
-            <div className={styles.inputContainer}>
-              <label htmlFor="email">Email Address</label>
-              <input
-                id="email"
-                type="email"
-                value={formData.email}
-                onChange={handleChange("email")}
-                onBlur={handleBlur("email")}
-                autoComplete="email"
-                required
-                aria-invalid={!!errors.email}
-                aria-describedby={
-                  errors.email ? "emailError emailHelp" : "emailHelp"
-                }
-              />
-              <p id="emailHelp" className={styles.helperText}>
-                Enter a valid email address (e.g., name@example.com).
-              </p>
-              {errors.email && (
-                <div
-                  className={styles.errorMsg}
-                  id="emailError"
-                  role="alert"
-                  aria-live="polite"
-                >
-                  <span aria-hidden="true">
-                    <ErrorIcon />
-                  </span>
-                  {errors.email}
-                </div>
-              )}
-            </div>
-
+            <TextInput
+              id="email"
+              label="Email Address"
+              value={formData.email}
+              onChange={handleChange(FIELD.EMAIL)}
+              onBlur={handleBlur(FIELD.EMAIL)}
+              autoComplete="email"
+              required
+              error={errors.email}
+              helperText="Enter a valid email address (e.g., name@example.com)."
+            />
             {/* Password */}
-            <div className={styles.inputContainer}>
-              <label htmlFor="password">Password</label>
-              <div>
-                <input
-                  id="password"
-                  type={showPassword ? "text" : "password"}
-                  value={formData.password}
-                  onChange={handleChange("password")}
-                  onBlur={handleBlur("password")}
-                  autoComplete="new-password"
-                  required
-                  aria-invalid={!!errors.password}
-                  aria-describedby={
-                    errors.password
-                      ? "passwordError passwordHelp"
-                      : "passwordHelp"
-                  }
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword((s) => !s)}
-                  aria-pressed={showPassword}
-                  aria-controls="password"
-                >
-                  {showPassword ? "Hide password" : "Show password"}
-                </button>
-              </div>
-              <p id="passwordHelp" className={styles.helperText}>
-                Must be at least 8 characters and include an uppercase letter, a
-                lowercase letter, a number, and a special character.
-              </p>
-              {errors.password && (
-                <div
-                  className={styles.errorMsg}
-                  id="passwordError"
-                  role="alert"
-                  aria-live="polite"
-                >
-                  <span aria-hidden="true">
-                    <ErrorIcon />
-                  </span>
-                  {errors.password}
-                </div>
-              )}
-            </div>
-
+            <PasswordInput
+              id="password"
+              label="Password"
+              value={formData.password}
+              onChange={handleChange(FIELD.PASSWORD)}
+              onBlur={handleBlur(FIELD.PASSWORD)}
+              required
+              showPassword={showPassword}
+              setShowPassword={setShowPassword}
+              error={errors.password}
+              helperText="Must be at least 8 characters and include an uppercase letter, a lowercase letter, a number, and a special character."
+            />
             {/* Job Title Select */}
-            <div className={styles.inputContainer}>
-              <label htmlFor="jobTitle">Job Title</label>
-              <select
-                id="jobTitle"
-                value={formData.jobTitle}
-                onChange={handleChange("jobTitle")}
-                onBlur={handleBlur("jobTitle")}
-                required
-                aria-invalid={!!errors.jobTitle}
-                aria-describedby={errors.jobTitle ? "jobTitleError" : undefined}
-              >
-                {jobTitleOptions.map((option) => (
-                  <option key={option.value} value={option.value}>
-                    {option.label}
-                  </option>
-                ))}
-              </select>
-              {errors.jobTitle && (
-                <div
-                  className={styles.errorMsg}
-                  id="jobTitleError"
-                  role="alert"
-                  aria-live="polite"
-                >
-                  <span aria-hidden="true">
-                    <ErrorIcon />
-                  </span>
-                  {errors.jobTitle}
-                </div>
-              )}
-            </div>
-
+            <SelectInput
+              id="jobTitle"
+              label="Job Title"
+              value={formData.jobTitle}
+              onChange={handleChange(FIELD.JOB_TITLE)}
+              onBlur={handleBlur(FIELD.JOB_TITLE)}
+              required
+              options={jobTitleOptions}
+              error={errors.jobTitle}
+            />
             {/* Interests Multiple Choice Checkbox Group */}
-            <div
-              role="group"
-              aria-label="Interests"
-              className={styles.styledCheckboxGroup}
-              aria-describedby={errors.interests ? "interestsError" : undefined}
-            >
-              <div className={styles.groupLabel}>Select your interests:</div>
-
-              {interestOptions.map((option) => (
-                <div key={option.value}>
-                  <input
-                    type="checkbox"
-                    id={`interest-${option.value}`}
-                    value={option.value}
-                    checked={formData.interests.includes(option.value)}
-                    onChange={() => handleMultipleChoice(option.value)}
-                    onBlur={handleBlurMultipleChoice}
-                    className={styles.hiddenInput}
-                    aria-invalid={!!errors.interests}
-                  />
-                  <label
-                    htmlFor={`interest-${option.value}`}
-                    className={styles.optionLabel}
-                  >
-                    {option.label}
-                  </label>
-                </div>
-              ))}
-
-              {errors.interests && (
-                <div
-                  className={styles.errorMsg}
-                  id="interestsError"
-                  role="alert"
-                  aria-live="polite"
-                >
-                  <span aria-hidden="true">
-                    <ErrorIcon />
-                  </span>
-                  {errors.interests}
-                </div>
-              )}
-            </div>
-
+            <CheckboxGroup
+              label="Select your interests:"
+              options={interestOptions}
+              selected={formData.interests}
+              onChange={handleMultipleChoice}
+              onBlur={handleBlurMultipleChoice}
+              error={errors.interests}
+            />
             {/* Team Size Radio Group */}
-            <div
-              role="radiogroup"
-              aria-label="Team Size"
-              className={styles.styledRadioGroup}
-              aria-describedby={errors.teamSize ? "teamSizeError" : undefined}
-            >
-              <div className={styles.radioGroupLabel} id="teamSize-label">
-                Team Size:
-              </div>
-
-              {teamSizeOptions.map((option) => (
-                <div key={option.value}>
-                  <input
-                    type="radio"
-                    id={`team-${option.value.replace("+", "plus")}`}
-                    name="teamSize"
-                    value={option.value}
-                    checked={formData.teamSize === option.value}
-                    onChange={handleChange("teamSize")}
-                    onBlur={handleBlur("teamSize")}
-                    className={styles.styledInput}
-                    required
-                    aria-invalid={!!errors.teamSize}
-                  />
-                  <label
-                    htmlFor={`team-${option.value.replace("+", "plus")}`}
-                    className={styles.optionLabel}
-                  >
-                    {option.label}
-                  </label>
-                </div>
-              ))}
-
-              {errors.teamSize && (
-                <div
-                  className={styles.errorMsg}
-                  id="teamSizeError"
-                  role="alert"
-                  aria-live="polite"
-                >
-                  <span aria-hidden="true">
-                    <ErrorIcon />
-                  </span>
-                  {errors.teamSize}
-                </div>
-              )}
-            </div>
-
+            <RadioGroup
+              label="Team Size"
+              options={teamSizeOptions}
+              selected={formData.teamSize}
+              onChange={handleChange(FIELD.TEAM_SIZE)}
+              onBlur={handleBlur(FIELD.TEAM_SIZE)}
+              error={errors.teamSize}
+            />
             {/* Additional Comments */}
-            <div className={styles.inputContainer}>
-              <label htmlFor="additionalComments">Additional Comments</label>
-              <textarea
-                id="additionalComments"
-                rows={5}
-                value={formData.additionalComments}
-                onChange={(e) => {
-                  const value = e.target.value.slice(0, 500);
-                  setFormData((f) => ({ ...f, additionalComments: value }));
-                  if (touched.additionalComments) {
-                    setErrors((prev) => ({
-                      ...prev,
-                      additionalComments: validate({
-                        ...formData,
-                        additionalComments: value,
-                      }).additionalComments,
-                    }));
-                  }
-                }}
-                onBlur={handleBlur("additionalComments")}
-                aria-describedby={
-                  errors.additionalComments
-                    ? "additionalCommentsError additionalCommentsHelp"
-                    : "additionalCommentsHelp"
-                }
-                aria-invalid={!!errors.additionalComments}
-                maxLength={500}
-              />
-              <p id="additionalCommentsHelp" className={styles.helperText}>
-                Optional. Max 500 characters.{" "}
-                {500 - (formData.additionalComments?.length || 0)} characters
-                left.
-              </p>
-              {errors.additionalComments && (
-                <div
-                  className={styles.errorMsg}
-                  id="additionalCommentsError"
-                  role="alert"
-                  aria-live="polite"
-                >
-                  <span aria-hidden="true">
-                    <ErrorIcon />
-                  </span>
-                  {errors.additionalComments}
-                </div>
-              )}
-            </div>
-
+            <TextareaInput
+              id="additionalComments"
+              label="Additional Comments"
+              value={formData.additionalComments}
+              onChange={handleAdditionalCommentsChange}
+              onBlur={handleBlur(FIELD.ADDITIONAL_COMMENTS)}
+              error={errors.additionalComments}
+              helperText={`Optional. Max 500 characters. ${
+                500 - (formData.additionalComments?.length || 0)
+              } characters left.`}
+              maxLength={500}
+            />
             {/* Terms Checkbox */}
             <div className={styles.inputContainer}>
               <div className={styles.checkboxContainer}>
@@ -479,31 +303,35 @@ export default function FormAccessibilityPage() {
                   id="terms"
                   type="checkbox"
                   checked={formData.accepted}
-                  onChange={handleChange("accepted")}
-                  onBlur={handleBlur("accepted")}
+                  onChange={handleChange(FIELD.ACCEPTED)}
+                  onBlur={handleBlur(FIELD.ACCEPTED)}
                   required
                   aria-invalid={!!errors.accepted}
                   aria-describedby={errors.accepted ? "termsError" : undefined}
                 />
                 <label htmlFor="terms">
-                  I agree to the terms and conditions
+                  I agree to the{" "}
+                  <a
+                    href="/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.termsLink}
+                  >
+                    terms and conditions
+                  </a>
                 </label>
               </div>
               {errors.accepted && (
                 <div
-                  className={styles.errorMsg}
+                  className={errorStyles.errorMsg}
                   id="termsError"
                   role="alert"
                   aria-live="polite"
                 >
-                  <span aria-hidden="true">
-                    <ErrorIcon />
-                  </span>
-                  {errors.accepted}
+                  <ErrorMessage error={errors.accepted} />
                 </div>
               )}
             </div>
-
             {/* Submit Button */}
             <button type="submit">Register</button>
           </form>

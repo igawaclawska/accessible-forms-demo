@@ -1,13 +1,9 @@
-/* Layout */
 main {
-  /* max-width: 500px; */
-  /* margin: 2rem auto; */
   padding: 2rem;
   background: #fff;
 }
 
 h1 {
-  /* font-size: 2.5rem; */
   margin-bottom: 2rem;
 }
 
@@ -16,8 +12,7 @@ header {
   margin-bottom: 2rem;
 }
 
-/* Form elements */
-
+/* Form layout */
 .form {
   max-width: 500px;
   margin: 0 auto;
@@ -45,10 +40,6 @@ label {
 
 form label:first-of-type {
   margin-top: 0;
-}
-
-.inputContainer {
-  margin-bottom: 1.5em;
 }
 
 .checkboxContainer {
@@ -109,12 +100,12 @@ button[type="submit"]:focus {
 }
 
 /* Error messages */
-[role="alert"] {
+/* [role="alert"] {
   color: #c00;
   font-size: 0.95rem;
   margin-top: 0.25rem;
   display: block;
-}
+} */
 
 /* Help text */
 #commentsHelp {
@@ -123,13 +114,7 @@ button[type="submit"]:focus {
   margin-top: 0.25rem;
 }
 
-.helperText {
-  font-size: 0.95em;
-  color: #555;
-  margin-top: 4px;
-  margin-bottom: 0;
-}
-
+/* Utility classes */
 .invisible {
   display: none;
 }
@@ -155,204 +140,6 @@ div {
   overflow: hidden !important;
   clip: rect(0, 0, 0, 0) !important;
   border: 0 !important;
-}
-
-.errorMsg {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.25rem;
-  color: "red";
-}
-
-.errorMsg span {
-  min-height: 16px;
-  min-width: 16px;
-  margin-top: 4px;
-}
-
-/* Container */
-.styledRadioGroup {
-  all: unset;
-  box-sizing: border-box;
-  overflow-y: scroll;
-  overflow-x: hidden;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  gap: 0.5rem;
-  padding: 0;
-  max-height: 24rem;
-}
-.styledRadioGroup::-webkit-scrollbar {
-  display: none;
-}
-
-/* Group label */
-.radioGroupLabel {
-  margin: 0 0 1rem 0;
-  display: block;
-  width: 100%;
-}
-
-/* Hidden radio input */
-.styledInput {
-  appearance: none;
-  position: absolute;
-  opacity: 0;
-}
-
-/* Option label */
-.optionLabel {
-  cursor: pointer;
-  color: #000000;
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 0 1.2rem;
-  height: 2.75rem;
-  border-radius: 2rem;
-  border: solid 0.1rem #d3d3d3; /* lightGrey */
-  box-shadow: 0px 0.1rem #d3d3d3; /* lightGrey */
-  white-space: nowrap;
-  transition: all 300ms ease-in-out;
-  margin-bottom: 0.2rem;
-}
-
-/* Add a radio circle to the left of the label */
-.styledInput[type="radio"] + .optionLabel::before {
-  content: "";
-  display: inline-block;
-  width: 1.1em;
-  height: 1.1em;
-  border: 2px solid #1e6fd9;
-  border-radius: 50%;
-  background: #fff;
-  margin-right: 0.7em;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
-  vertical-align: middle;
-}
-
-/* Fill the radio circle when checked */
-.styledInput[type="radio"]:checked + .optionLabel::before {
-  background: radial-gradient(circle at 50% 50%, #1e6fd9 55%, #fff 56%);
-  border-color: #1e6fd9;
-}
-
-/* Left-aligned variation */
-.leftAligned {
-  justify-content: flex-start;
-  padding: 0 1.2rem 0 0.5rem;
-}
-
-/* States */
-.optionLabel:hover {
-  background-color: #f2f2f2; /* veryLightGrey */
-}
-
-.styledInput:checked + .optionLabel {
-  background-color: #d0e7ff; /* blue100 */
-  border-color: #1e6fd9; /* blue700 */
-  box-shadow: 0px 0.1rem #1e6fd9; /* blue700 */
-  color: #0d3c74; /* blue900 */
-}
-
-.styledInput:checked + .optionLabel:hover {
-  background-color: #d0e7ff; /* blue100 */
-}
-
-.optionLabel:active,
-.styledInput:checked + .optionLabel:active {
-  box-shadow: none;
-  transform: translateY(0.1em);
-  transition: all ease-in 0.08s;
-}
-
-/* Checkboxes */
-/* Container */
-.styledCheckboxGroup {
-  all: unset;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-content: flex-start;
-  gap: 0.5rem;
-  padding: 0;
-  max-height: 24rem;
-  overflow-y: auto;
-}
-.styledCheckboxGroup::-webkit-scrollbar {
-  display: none;
-}
-
-/* Group label */
-.groupLabel {
-  margin: 0 0 1rem 0;
-  display: block;
-  width: 100%;
-  font-weight: 600;
-}
-
-/* Hidden checkbox input */
-.hiddenInput {
-  appearance: none;
-  position: absolute;
-  opacity: 0;
-}
-
-/* Option label styled as a pill */
-.optionLabel {
-  cursor: pointer;
-  color: #000000;
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 0 1.2rem;
-  height: 2.75rem;
-  border-radius: 2rem;
-  border: solid 0.1rem #d3d3d3; /* light grey */
-  box-shadow: 0px 0.1rem #d3d3d3; /* light grey */
-  white-space: nowrap;
-  transition: all 300ms ease-in-out;
-  margin-bottom: 0.2rem;
-}
-
-/* Hover state */
-.optionLabel:hover {
-  background-color: #f2f2f2; /* very light grey */
-}
-
-/* Checked state */
-.hiddenInput:checked + .optionLabel {
-  background-color: #d0e7ff; /* blue100 */
-  border-color: #1e6fd9; /* blue700 */
-  box-shadow: 0px 0.1rem #1e6fd9; /* blue700 */
-  color: #0d3c74; /* blue900 */
-}
-
-/* Checked + hover */
-.hiddenInput:checked + .optionLabel:hover {
-  background-color: #d0e7ff;
-}
-
-/* Active press */
-.optionLabel:active,
-.hiddenInput:checked + .optionLabel:active {
-  box-shadow: none;
-  transform: translateY(0.1em);
-  transition: all ease-in 0.08s;
 }
 
 /* Footer */
@@ -389,7 +176,7 @@ div {
   margin-right: auto;
 }
 
-/* Suggestion for FormAccessibilityPage.module.css */
+/* Header suggestion */
 .headerContent {
   display: flex;
   align-items: center;
@@ -408,6 +195,7 @@ div {
   font-weight: bold;
   font-size: 1.25rem;
 }
+
 .loginBtn {
   background: #0078d4;
   color: white;

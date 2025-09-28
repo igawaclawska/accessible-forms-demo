@@ -1,0 +1,12 @@
+.errorSpan {
+  margin-top: 0.25rem;
+}
+
+.errorMsg {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.25rem;
+  color: #c00;
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
+}
