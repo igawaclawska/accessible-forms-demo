@@ -10,16 +10,16 @@ export default function CheckboxGroup({
   onBlur,
   error,
 }) {
+  const errorId = `checkbox-group-error-${label.replace(/\s/g, "")}`;
+
   return (
-    <div
-      role="group"
-      aria-label={label}
+    <fieldset
       className={styles.styledCheckboxGroup}
-      aria-describedby={error ? `${label.replace(/\s/g, "")}Error` : undefined}
+      aria-describedby={error ? errorId : undefined}
     >
-      <div className={styles.groupLabel}>{label}</div>
+      <legend className={styles.groupLabel}>{label}</legend>
       {options.map((option) => (
-        <div key={option.value}>
+        <div className={styles.optionWrapper} key={option.value}>
           <input
             type="checkbox"
             id={`interest-${option.value}`}
@@ -29,6 +29,7 @@ export default function CheckboxGroup({
             onBlur={onBlur}
             className={styles.hiddenInput}
             aria-invalid={!!error}
+            aria-describedby={error ? errorId : undefined}
           />
           <label
             htmlFor={`interest-${option.value}`}
@@ -41,13 +42,13 @@ export default function CheckboxGroup({
       {error && (
         <div
           className={errorStyles.errorMsg}
-          id={`${label.replace(/\s/g, "")}Error`}
+          id={errorId}
           role="alert"
           aria-live="polite"
         >
           <ErrorMessage error={error} />
         </div>
       )}
-    </div>
+    </fieldset>
   );
 }

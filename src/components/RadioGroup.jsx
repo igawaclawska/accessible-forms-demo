@@ -9,47 +9,50 @@ export default function RadioGroup({
   onChange,
   onBlur,
   error,
+  name, // add a name prop for uniqueness
 }) {
+  const groupName = name || label.replace(/\s/g, "").toLowerCase();
+
   return (
-    <div
-      role="radiogroup"
-      aria-label={label}
+    <fieldset
       className={styles.styledRadioGroup}
-      aria-describedby={error ? `${label.replace(/\s/g, "")}Error` : undefined}
+      aria-describedby={error ? `${groupName}Error` : undefined}
     >
-      <div className={styles.radioGroupLabel}>{label}:</div>
-      {options.map((option) => (
-        <div key={option.value}>
-          <input
-            type="radio"
-            id={`team-${option.value.replace("+", "plus")}`}
-            name={label}
-            value={option.value}
-            checked={selected === option.value}
-            onChange={onChange}
-            onBlur={onBlur}
-            className={styles.styledInput}
-            required
-            aria-invalid={!!error}
-          />
-          <label
-            htmlFor={`team-${option.value.replace("+", "plus")}`}
-            className={styles.optionLabel}
-          >
-            {option.label}
-          </label>
-        </div>
-      ))}
+      <legend className={styles.radioGroupLabel}>{label}:</legend>
+      {options.map((option) => {
+        const optionId = `${groupName}-${option.value.replace(
+          /[^a-zA-Z0-9]/g,
+          ""
+        )}`;
+        return (
+          <div className={styles.optionWrapper} key={option.value}>
+            <input
+              type="radio"
+              id={optionId}
+              name={groupName}
+              value={option.value}
+              checked={selected === option.value}
+              onChange={onChange}
+              onBlur={onBlur}
+              className={styles.styledInput}
+              aria-invalid={!!error}
+            />
+            <label htmlFor={optionId} className={styles.optionLabel}>
+              {option.label}
+            </label>
+          </div>
+        );
+      })}
       {error && (
         <div
           className={errorStyles.errorMsg}
-          id={`${label.replace(/\s/g, "")}Error`}
+          id={`${groupName}Error`}
           role="alert"
           aria-live="polite"
         >
           <ErrorMessage error={error} />
         </div>
       )}
-    </div>
+    </fieldset>
   );
 }
