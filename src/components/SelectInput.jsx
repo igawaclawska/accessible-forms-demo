@@ -1,6 +1,5 @@
 import ErrorMessage from "./ErrorMessage";
 import styles from "./SelectInput.module.css";
-import errorStyles from "./ErrorMessage.module.css";
 
 export default function SelectInput({
   id,
@@ -11,11 +10,13 @@ export default function SelectInput({
   required,
   options,
   error,
+  inputRef,
 }) {
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={id}>{label}</label>
       <select
+        ref={inputRef}
         id={id}
         value={value}
         onChange={onChange}
@@ -30,16 +31,7 @@ export default function SelectInput({
           </option>
         ))}
       </select>
-      {error && (
-        <div
-          className={errorStyles.errorMsg}
-          id={`${id}Error`}
-          role="alert"
-          aria-live="polite"
-        >
-          <ErrorMessage error={error} />
-        </div>
-      )}
+      <ErrorMessage error={error} id={`${id}Error`} />
     </div>
   );
 }

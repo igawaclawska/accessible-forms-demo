@@ -31,8 +31,8 @@
   padding: 0 1.2rem;
   height: 2.75rem;
   border-radius: 0.5rem;
-  border: solid 0.1rem #d3d3d3;
-  box-shadow: 0px 0.1rem #d3d3d3;
+  border: solid 0.1rem #000;
+  box-shadow: 0px 0.1rem #000;
   transition: background 0.2s;
 }
 
@@ -41,8 +41,8 @@
 }
 
 .styledInput:checked + .optionLabel {
-  background-color: #d0e7ff;
-  border-color: #1e6fd9;
+  background-color: #eaeaea;
+  border-color: #000;
   color: #0d3c74;
 }
 
@@ -51,7 +51,7 @@
   display: inline-block;
   width: 1.1em;
   height: 1.1em;
-  border: 2px solid #1e6fd9;
+  border: 2px solid #000;
   border-radius: 50%;
   background: #fff;
   margin-right: 0.7em;
@@ -61,6 +61,20 @@
 }
 
 .styledInput[type="radio"]:checked + .optionLabel::before {
-  background: radial-gradient(circle at 50% 50%, #1e6fd9 55%, #fff 56%);
-  border-color: #1e6fd9;
+  background: radial-gradient(circle at 50% 50%, #000 55%, #fff 56%);
+  border-color: #000;
+}
+
+.optionLabel:active,
+.hiddenInput:checked + .optionLabel:active {
+  box-shadow: none;
+  transform: translateY(0.1em);
+  transition: all ease-in 0.08s;
+}
+
+.styledInput:focus + .optionLabel {
+  outline: 2px solid #005fcc;
+  outline-offset: 2px;
+  transform: translateY(0.1em);
+  box-shadow: 0 0 0 2px white;
 }

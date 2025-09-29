@@ -1,23 +1,31 @@
-import { useState } from "react";
-import { validate } from "../utils/formValidation";
+import { useRef, useEffect } from "react";
 import styles from "./FormAccessibilityPage.module.css";
-import errorStyles from "../components/ErrorMessage.module.css";
 import TextInput from "../components/TextInput";
 import PasswordInput from "../components/PasswordInput";
 import SelectInput from "../components/SelectInput";
 import CheckboxGroup from "../components/CheckboxGroup";
 import RadioGroup from "../components/RadioGroup";
 import TextareaInput from "../components/TextareaInput";
-import ErrorMessage from "../components/ErrorMessage";
+import CheckboxWithLabel from "../components/CheckboxWithLabel";
 import {
   teamSizeOptions,
   interestOptions,
   jobTitleOptions,
 } from "../constants/formOptions";
 import { FIELD } from "../constants/formFields";
+import useForm from "../hooks/useForm";
 
 export default function FormAccessibilityPage() {
-  const [formData, setFormData] = useState({
+  const {
+    formData,
+    errors,
+    handleChange,
+    handleMultipleChoice,
+    handleBlur,
+    handleBlurMultipleChoice,
+    handleAdditionalCommentsChange,
+    handleSubmit,
+  } = useForm({
     fullName: "",
     email: "",
     password: "",
@@ -27,120 +35,84 @@ export default function FormAccessibilityPage() {
     teamSize: "",
     additionalComments: "",
   });
-  const [errors, setErrors] = useState({});
-  const [touched, setTouched] = useState({});
-  const [showPassword, setShowPassword] = useState(false);
 
-  const handleChange = (field) => (e) => {
-    const value = field === "accepted" ? e.target.checked : e.target.value;
-    setFormData((f) => ({ ...f, [field]: value }));
-
-    if (touched[field]) {
-      setErrors((prev) => ({
-        ...prev,
-        [field]: validate({ ...formData, [field]: value })[field],
-      }));
-    }
+  // Create refs for each field
+  const refs = {
+    fullName: useRef(null),
+    email: useRef(null),
+    password: useRef(null),
+    jobTitle: useRef(null),
+    interests: interestOptions.map(() => useRef(null)),
+    teamSize: teamSizeOptions.map(() => useRef(null)),
+    additionalComments: useRef(null),
+    accepted: useRef(null),
   };
 
-  const handleMultipleChoice = (option) => {
-    const selected = formData.interests.includes(option)
-      ? formData.interests.filter((o) => o !== option)
-      : [...formData.interests, option];
+  // Focus and scroll to first error field after errors change
+  useEffect(() => {
+    const fieldOrder = [
+      "fullName",
+      "email",
+      "password",
+      "jobTitle",
+      "interests",
+      "teamSize",
+      "additionalComments",
+      "accepted",
+    ];
+    const errorFields = fieldOrder.filter((key) => errors[key]);
+    if (errorFields.length === 0) return;
 
-    setFormData((prev) => ({
-      ...prev,
-      interests: selected,
-    }));
+    const firstError = errorFields[0];
+    const ref = refs[firstError];
+    const errorValue = errors[firstError];
 
-    if (touched.interests) {
-      setErrors((prev) => ({
-        ...prev,
-        interests: validate({ ...formData, interests: selected }).interests,
-      }));
+    // Generic helper for array errors
+    const getErrorIndex = (errorArr) =>
+      Array.isArray(errorArr) ? errorArr.findIndex(Boolean) || 0 : 0;
+
+    if (Array.isArray(ref)) {
+      const errorIndex = getErrorIndex(errorValue);
+      if (ref[errorIndex]?.current) {
+        ref[errorIndex].current.scrollIntoView({
+          behavior: "smooth",
+          block: "center",
+        });
+        ref[errorIndex].current.focus();
+      }
+    } else if (ref?.current) {
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      ref.current.focus();
     }
-  };
-
-  const handleBlur = (field) => () => {
-    if (!touched[field]) {
-      setTouched((prev) => ({ ...prev, [field]: true }));
-      setErrors((prev) => ({
-        ...prev,
-        [field]: validate(formData)[field],
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        [field]: validate(formData)[field],
-      }));
-    }
-  };
-
-  const handleBlurMultipleChoice = () => {
-    if (!touched.interests) {
-      setTouched((prev) => ({ ...prev, interests: true }));
-      setErrors((prev) => ({
-        ...prev,
-        interests: validate(formData).interests,
-      }));
-    } else {
-      setErrors((prev) => ({
-        ...prev,
-        interests: validate(formData).interests,
-      }));
-    }
-  };
-
-  const handleAdditionalCommentsChange = (e) => {
-    const value = e.target.value.slice(0, 500);
-    setFormData((f) => ({ ...f, additionalComments: value }));
-    if (touched.additionalComments) {
-      setErrors((prev) => ({
-        ...prev,
-        additionalComments: validate({
-          ...formData,
-          additionalComments: value,
-        }).additionalComments,
-      }));
-    }
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const validationErrors = validate(formData);
-    setErrors(validationErrors);
-    setTouched({
-      fullName: true,
-      email: true,
-      password: true,
-      jobTitle: true,
-      accepted: true,
-      interests: true,
-      teamSize: true,
-      additionalComments: true,
-    });
-    if (Object.keys(validationErrors).length === 0) {
-      alert(JSON.stringify(formData, null, 2));
-    }
-  };
+  }, [errors]);
 
   return (
     <>
       <header className={styles.header}>
         <div className={styles.headerContent}>
-          <div className={styles.logo} aria-label="Company Logo">
-            <span className={styles.companyName}>Acme Events</span>
+          <div className={styles.logo} aria-label="BrightPath Solutions Logo">
+            <span className={styles.companyName}>BrightPath Solutions</span>
           </div>
-          <button className={styles.loginBtn} type="button">
-            Login
-          </button>
+          <nav className={styles.headerNav} aria-label="Main navigation">
+            <a href="#" className={styles.headerLink}>
+              Enhanced Accessibility
+            </a>
+            <a href="#" className={styles.headerLink}>
+              Poor Accessibility
+            </a>
+          </nav>
         </div>
       </header>
       <main className={styles.main}>
         <h1>User Registration</h1>
         <section aria-labelledby="registrationFormTitle">
-          <form onSubmit={handleSubmit} noValidate className={styles.form}>
-            {/* Full Name */}
+          <form
+            onSubmit={handleSubmit((data) =>
+              alert(JSON.stringify(data, null, 2))
+            )}
+            noValidate
+            className={styles.form}
+          >
             <TextInput
               id="fullName"
               label="Full Name"
@@ -150,8 +122,9 @@ export default function FormAccessibilityPage() {
               autoComplete="name"
               required
               error={errors.fullName}
+              inputRef={refs.fullName}
             />
-            {/* Email */}
+
             <TextInput
               id="email"
               label="Email Address"
@@ -162,8 +135,9 @@ export default function FormAccessibilityPage() {
               required
               error={errors.email}
               helperText="Enter a valid email address (e.g., name@example.com)."
+              inputRef={refs.email}
             />
-            {/* Password */}
+
             <PasswordInput
               id="password"
               label="Password"
@@ -171,12 +145,11 @@ export default function FormAccessibilityPage() {
               onChange={handleChange(FIELD.PASSWORD)}
               onBlur={handleBlur(FIELD.PASSWORD)}
               required
-              showPassword={showPassword}
-              setShowPassword={setShowPassword}
               error={errors.password}
               helperText="Must be at least 8 characters and include an uppercase letter, a lowercase letter, a number, and a special character."
+              inputRef={refs.password}
             />
-            {/* Job Title Select */}
+
             <SelectInput
               id="jobTitle"
               label="Job Title"
@@ -186,17 +159,19 @@ export default function FormAccessibilityPage() {
               required
               options={jobTitleOptions}
               error={errors.jobTitle}
+              inputRef={refs.jobTitle}
             />
-            {/* Interests Multiple Choice Checkbox Group */}
+
             <CheckboxGroup
               label="Select your interests:"
               options={interestOptions}
               selected={formData.interests}
               onChange={handleMultipleChoice}
-              onBlur={handleBlurMultipleChoice}
+              onBlur={() => handleBlurMultipleChoice()}
               error={errors.interests}
+              inputRef={refs.interests}
             />
-            {/* Team Size Radio Group */}
+
             <RadioGroup
               label="Team Size"
               options={teamSizeOptions}
@@ -204,8 +179,9 @@ export default function FormAccessibilityPage() {
               onChange={handleChange(FIELD.TEAM_SIZE)}
               onBlur={handleBlur(FIELD.TEAM_SIZE)}
               error={errors.teamSize}
+              inputRef={refs.teamSize}
             />
-            {/* Additional Comments */}
+
             <TextareaInput
               id="additionalComments"
               label="Additional Comments"
@@ -218,50 +194,40 @@ export default function FormAccessibilityPage() {
               } characters left.`}
               maxLength={500}
             />
-            {/* Terms Checkbox */}
-            <div className={styles.inputContainer}>
-              <div className={styles.checkboxContainer}>
-                <input
-                  id="terms"
-                  type="checkbox"
-                  checked={formData.accepted}
-                  onChange={handleChange(FIELD.ACCEPTED)}
-                  onBlur={handleBlur(FIELD.ACCEPTED)}
-                  required
-                  aria-invalid={!!errors.accepted}
-                  aria-describedby={errors.accepted ? "termsError" : undefined}
-                />
-                <label htmlFor="terms">
-                  I agree to the{" "}
-                  <a
-                    href="/terms"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.termsLink}
-                  >
-                    terms and conditions
-                  </a>
-                </label>
-              </div>
-              {errors.accepted && (
-                <div
-                  className={errorStyles.errorMsg}
-                  id="termsError"
-                  role="alert"
-                  aria-live="polite"
-                >
-                  <ErrorMessage error={errors.accepted} />
-                </div>
-              )}
-            </div>
-            {/* Submit Button */}
+
+            <CheckboxWithLabel
+              accepted={formData.accepted}
+              onChange={handleChange(FIELD.ACCEPTED)}
+              onBlur={handleBlur(FIELD.ACCEPTED)}
+              error={errors.accepted}
+              id="terms"
+              inputRef={refs.accepted}
+            />
+
             <button type="submit">Register</button>
           </form>
         </section>
       </main>
       <footer className={styles.footer}>
-        <div className={styles.content}>
-          <p className={styles.name}>Forms</p>
+        <div className={styles.footerContent}>
+          <p className={styles.footerBrand}>BrightPath Solutions</p>
+          <nav className={styles.footerNav} aria-label="Footer">
+            <a
+              href="https://github.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.footerLink}
+            >
+              GitHub
+            </a>
+            <a href="mailto:info@brightpath.com" className={styles.footerLink}>
+              Contact
+            </a>
+          </nav>
+          <p className={styles.footerCopyright}>
+            &copy; {new Date().getFullYear()} BrightPath Solutions. All rights
+            reserved.
+          </p>
         </div>
       </footer>
     </>

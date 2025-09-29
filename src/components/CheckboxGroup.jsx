@@ -1,5 +1,4 @@
 import styles from "./CheckboxGroup.module.css";
-import errorStyles from "./ErrorMessage.module.css";
 import ErrorMessage from "./ErrorMessage";
 
 export default function CheckboxGroup({
@@ -9,18 +8,19 @@ export default function CheckboxGroup({
   onChange,
   onBlur,
   error,
+  inputRef,
 }) {
   const errorId = `checkbox-group-error-${label.replace(/\s/g, "")}`;
-
   return (
     <fieldset
       className={styles.styledCheckboxGroup}
       aria-describedby={error ? errorId : undefined}
     >
       <legend className={styles.groupLabel}>{label}</legend>
-      {options.map((option) => (
+      {options.map((option, idx) => (
         <div className={styles.optionWrapper} key={option.value}>
           <input
+            ref={inputRef ? inputRef[idx] : undefined}
             type="checkbox"
             id={`interest-${option.value}`}
             value={option.value}
@@ -39,16 +39,7 @@ export default function CheckboxGroup({
           </label>
         </div>
       ))}
-      {error && (
-        <div
-          className={errorStyles.errorMsg}
-          id={errorId}
-          role="alert"
-          aria-live="polite"
-        >
-          <ErrorMessage error={error} />
-        </div>
-      )}
+      <ErrorMessage error={error} id={`${errorId}Error`} />
     </fieldset>
   );
 }

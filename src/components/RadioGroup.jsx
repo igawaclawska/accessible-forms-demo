@@ -1,6 +1,5 @@
 import ErrorMessage from "./ErrorMessage";
 import styles from "./RadioGroup.module.css";
-import errorStyles from "./ErrorMessage.module.css";
 
 export default function RadioGroup({
   label,
@@ -10,8 +9,10 @@ export default function RadioGroup({
   onBlur,
   error,
   name,
+  inputRef,
 }) {
   const groupName = name || label.replace(/\s/g, "").toLowerCase();
+  const errorId = `radio-group-error-${label.replace(/\s/g, "")}`;
 
   return (
     <fieldset
@@ -19,7 +20,7 @@ export default function RadioGroup({
       aria-describedby={error ? `${groupName}Error` : undefined}
     >
       <legend className={styles.radioGroupLabel}>{label}:</legend>
-      {options.map((option) => {
+      {options.map((option, idx) => {
         const optionId = `${groupName}-${option.value.replace(
           /[^a-zA-Z0-9]/g,
           ""
@@ -27,6 +28,7 @@ export default function RadioGroup({
         return (
           <div className={styles.optionWrapper} key={option.value}>
             <input
+              ref={inputRef ? inputRef[idx] : undefined}
               type="radio"
               id={optionId}
               name={groupName}
@@ -43,16 +45,7 @@ export default function RadioGroup({
           </div>
         );
       })}
-      {error && (
-        <div
-          className={errorStyles.errorMsg}
-          id={`${groupName}Error`}
-          role="alert"
-          aria-live="polite"
-        >
-          <ErrorMessage error={error} />
-        </div>
-      )}
+      <ErrorMessage error={error} id={`${errorId}Error`} />
     </fieldset>
   );
 }

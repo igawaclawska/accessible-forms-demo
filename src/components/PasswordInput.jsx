@@ -1,6 +1,6 @@
+import { useState } from "react";
 import ErrorMessage from "./ErrorMessage";
 import styles from "./PasswordInput.module.css";
-import errorStyles from "./ErrorMessage.module.css";
 import HelperText from "./HelperText";
 import EyeIcon from "./icons/EyeIcon";
 
@@ -11,16 +11,18 @@ export default function PasswordInput({
   onChange,
   onBlur,
   required,
-  showPassword,
-  setShowPassword,
   error,
   helperText,
+  inputRef,
 }) {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={id}>{label}</label>
       <div className={styles.inputRow}>
         <input
+          ref={inputRef}
           id={id}
           type={showPassword ? "text" : "password"}
           value={value}
@@ -43,16 +45,7 @@ export default function PasswordInput({
         </button>
       </div>
       <HelperText id={id} helperText={helperText} />
-      {error && (
-        <div
-          className={errorStyles.errorMsg}
-          id={`${id}Error`}
-          role="alert"
-          aria-live="polite"
-        >
-          <ErrorMessage error={error} />
-        </div>
-      )}
+      <ErrorMessage error={error} id={`${id}Error`} />
     </div>
   );
 }

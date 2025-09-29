@@ -1,6 +1,5 @@
 import ErrorMessage from "./ErrorMessage";
 import styles from "./TextareaInput.module.css";
-import errorStyles from "./ErrorMessage.module.css";
 import HelperText from "./HelperText";
 
 export default function TextareaInput({
@@ -27,16 +26,7 @@ export default function TextareaInput({
         maxLength={maxLength}
       />
       <HelperText id={id} helperText={helperText} />
-      {error && (
-        <div
-          className={errorStyles.errorMsg}
-          id={`${id}Error`}
-          role="alert"
-          aria-live="polite"
-        >
-          <ErrorMessage error={error} />
-        </div>
-      )}
+      <ErrorMessage error={error} id={`${id}Error`} />
     </div>
   );
 }

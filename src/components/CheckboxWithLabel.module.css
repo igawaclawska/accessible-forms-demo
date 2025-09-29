@@ -1,0 +1,20 @@
+.checkboxContainer {
+  display: flex;
+  align-items: baseline;
+  margin-bottom: 0;
+}
+
+.inputContainer {
+  margin-bottom: 1.5em;
+}
+
+.checkboxContainer input:focus {
+  outline: 2px solid #1976d2;
+  outline-offset: 2px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  width: auto;
+  margin-right: 0.5rem;
+}

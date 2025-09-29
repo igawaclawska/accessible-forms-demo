@@ -1,6 +1,5 @@
 import ErrorMessage from "./ErrorMessage";
 import styles from "./TextInput.module.css";
-import errorStyles from "./ErrorMessage.module.css";
 import HelperText from "./HelperText";
 
 export default function TextInput({
@@ -13,12 +12,14 @@ export default function TextInput({
   autoComplete,
   error,
   helperText,
+  inputRef,
 }) {
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={id}>{label}</label>
       <input
         id={id}
+        ref={inputRef}
         type="text"
         value={value}
         onChange={onChange}
@@ -35,16 +36,7 @@ export default function TextInput({
         }
       />
       <HelperText id={id} helperText={helperText} />
-      {error && (
-        <div
-          className={errorStyles.errorMsg}
-          id={`${id}Error`}
-          role="alert"
-          aria-live="polite"
-        >
-          <ErrorMessage error={error} />
-        </div>
-      )}
+      <ErrorMessage error={error} id={`${id}Error`} />
     </div>
   );
 }
