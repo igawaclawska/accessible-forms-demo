@@ -91,7 +91,7 @@ export default function FormAccessibilityPage() {
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <div className={styles.logo} aria-label="BrightPath Solutions Logo">
-            <span className={styles.companyName}>BrightPath Solutions</span>
+            <span className={styles.companyName}>Accessible Forms Demo</span>
           </div>
           <nav className={styles.headerNav} aria-label="Main navigation">
             <a href="#" className={styles.headerLink}>
