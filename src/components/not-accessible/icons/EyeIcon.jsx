@@ -17,7 +17,6 @@ export default function EyeIcon({ isOpen }) {
       <circle cx="12" cy="12" r="3" stroke="black" strokeWidth="2" />
     </svg>
   ) : (
-    // Eye closed icon
     <svg
       xmlns="http://www.w3.org/2000/svg"
       width="24"

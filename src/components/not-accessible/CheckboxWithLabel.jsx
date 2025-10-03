@@ -4,9 +4,7 @@ import ErrorMessage from "./ErrorMessage";
 export default function CheckboxWithLabel({
   accepted,
   onChange,
-  onBlur,
   error,
-  required = true,
   id = "terms",
   inputRef,
 }) {
@@ -19,12 +17,8 @@ export default function CheckboxWithLabel({
           type="checkbox"
           checked={accepted}
           onChange={onChange}
-          onBlur={onBlur}
-          required={required}
-          aria-invalid={!!error}
-          aria-describedby={error ? `${id}Error` : undefined}
         />
-        <label htmlFor={id}>
+        <label>
           I agree to the{" "}
           <a
             href="/terms"

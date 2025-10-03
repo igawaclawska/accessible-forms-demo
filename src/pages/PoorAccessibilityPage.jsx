@@ -1,12 +1,12 @@
 import { useRef, useEffect } from "react";
 import styles from "./FormAccessibilityPage.module.css";
-import TextInput from "../components/accessible/TextInput";
-import PasswordInput from "../components/accessible/PasswordInput";
-import SelectInput from "../components/accessible/SelectInput";
-import CheckboxGroup from "../components/accessible/CheckboxGroup";
-import RadioGroup from "../components/accessible/RadioGroup";
-import TextareaInput from "../components/accessible/TextareaInput";
-import CheckboxWithLabel from "../components/accessible/CheckboxWithLabel";
+import TextInput from "../components/not-accessible/TextInput";
+import PasswordInput from "../components/not-accessible/PasswordInput";
+import SelectInput from "../components/not-accessible/SelectInput";
+import CheckboxGroup from "../components/not-accessible/CheckboxGroup";
+import RadioGroup from "../components/not-accessible/RadioGroup";
+import TextareaInput from "../components/not-accessible/TextareaInput";
+import CheckboxWithLabel from "../components/not-accessible/CheckboxWithLabel";
 import {
   teamSizeOptions,
   interestOptions,
@@ -37,7 +37,6 @@ export default function FormAccessibilityPage() {
     additionalComments: "",
   });
 
-  // Create refs for each field
   const refs = {
     fullName: useRef(null),
     email: useRef(null),
@@ -49,7 +48,6 @@ export default function FormAccessibilityPage() {
     accepted: useRef(null),
   };
 
-  // Focus and scroll to first error field after errors change
   useEffect(() => {
     const fieldOrder = [
       "fullName",
@@ -120,8 +118,6 @@ export default function FormAccessibilityPage() {
               value={formData.fullName}
               onChange={handleChange(FIELD.FULL_NAME)}
               onBlur={handleBlur(FIELD.FULL_NAME)}
-              autoComplete="name"
-              required
               error={errors.fullName}
               inputRef={refs.fullName}
             />
@@ -132,8 +128,6 @@ export default function FormAccessibilityPage() {
               value={formData.email}
               onChange={handleChange(FIELD.EMAIL)}
               onBlur={handleBlur(FIELD.EMAIL)}
-              autoComplete="email"
-              required
               error={errors.email}
               helperText="Enter a valid email address (e.g., name@example.com)."
               inputRef={refs.email}
@@ -145,9 +139,8 @@ export default function FormAccessibilityPage() {
               value={formData.password}
               onChange={handleChange(FIELD.PASSWORD)}
               onBlur={handleBlur(FIELD.PASSWORD)}
-              required
               error={errors.password}
-              helperText="Must be at least 8 characters and include an uppercase letter, a lowercase letter, a number, and a special character."
+              helperText="Must be at least 8 characters."
               inputRef={refs.password}
             />
 
@@ -190,9 +183,7 @@ export default function FormAccessibilityPage() {
               onChange={handleAdditionalCommentsChange}
               onBlur={handleBlur(FIELD.ADDITIONAL_COMMENTS)}
               error={errors.additionalComments}
-              helperText={`Optional. Max 500 characters. ${
-                500 - (formData.additionalComments?.length || 0)
-              } characters left.`}
+              helperText={`Optional. Max 500 characters.`}
               maxLength={500}
             />
 
@@ -211,10 +202,10 @@ export default function FormAccessibilityPage() {
       </main>
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <p className={styles.footerBrand}>BrightPath Solutions</p>
-          <nav className={styles.footerNav} aria-label="Footer">
+          <p className={styles.footerBrand}>Accessible Forms Demo</p>
+          <nav className={styles.footerNav}>
             <a
-              href="https://github.com/"
+              href=""
               target="_blank"
               rel="noopener noreferrer"
               className={styles.footerLink}
@@ -226,7 +217,7 @@ export default function FormAccessibilityPage() {
             </a>
           </nav>
           <p className={styles.footerCopyright}>
-            &copy; {new Date().getFullYear()} BrightPath Solutions. All rights
+            &copy; {new Date().getFullYear()} Accessible Forms Demo. All rights
             reserved.
           </p>
         </div>

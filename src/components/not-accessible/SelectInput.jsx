@@ -6,23 +6,14 @@ export default function SelectInput({
   label,
   value,
   onChange,
-  onBlur,
-  required,
   options,
   error,
   inputRef,
 }) {
   return (
     <div className={styles.inputContainer}>
-      <label htmlFor={id}>{label}</label>
-      <select
-        ref={inputRef}
-        id={id}
-        value={value}
-        onChange={onChange}
-        onBlur={onBlur}
-        required={required}
-      >
+      <label>{label}</label>
+      <select ref={inputRef} id={id} value={value} onChange={onChange}>
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

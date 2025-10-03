@@ -1,7 +1,6 @@
 const ErrorIcon = ({ color = "red", size = "16px" }) => {
   return (
     <svg
-      aria-hidden={true}
       xmlns="http://www.w3.org/2000/svg"
       height={size}
       min-height={size}

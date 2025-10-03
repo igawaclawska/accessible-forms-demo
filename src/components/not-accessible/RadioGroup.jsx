@@ -6,45 +6,51 @@ export default function RadioGroup({
   options,
   selected,
   onChange,
-  onBlur,
   error,
   name,
-  inputRef,
 }) {
   const groupName = name || label.replace(/\s/g, "").toLowerCase();
   const errorId = `radio-group-error-${label.replace(/\s/g, "")}`;
 
+  const handleClick = (value) => {
+    if (onChange) {
+      onChange({ target: { name: groupName, value } });
+    }
+  };
+
   return (
-    <fieldset
+    <div
       className={styles.styledRadioGroup}
-      aria-describedby={error ? `${groupName}Error` : undefined}
+      role="radiogroup"
+      aria-labelledby={`${groupName}-label`}
     >
-      <legend className={styles.radioGroupLabel}>{label}:</legend>
-      {options.map((option, idx) => {
-        const optionId = `${groupName}-${option.value.replace(
-          /[^a-zA-Z0-9]/g,
-          ""
-        )}`;
+      <label className={styles.radioGroupLabel}>{label}:</label>
+
+      {options.map((option) => {
+        const isSelected = selected === option.value;
         return (
-          <div className={styles.optionWrapper} key={option.value}>
-            <input
-              ref={inputRef ? inputRef[idx] : undefined}
-              type="radio"
-              id={optionId}
-              name={groupName}
-              value={option.value}
-              checked={selected === option.value}
-              onChange={onChange}
-              onBlur={onBlur}
-              className={styles.styledInput}
-            />
-            <label htmlFor={optionId} className={styles.optionLabel}>
+          <div
+            key={option.value}
+            className={styles.optionWrapper}
+            onClick={() => handleClick(option.value)}
+          >
+            <div
+              className={`${styles.optionLabel} ${
+                isSelected ? styles.optionSelected : ""
+              }`}
+            >
+              <span
+                className={`${styles.radioCircle} ${
+                  isSelected ? styles.radioCircleChecked : ""
+                }`}
+              />
               {option.label}
-            </label>
+            </div>
           </div>
         );
       })}
+
       <ErrorMessage error={error} id={`${errorId}Error`} />
-    </fieldset>
+    </div>
   );
 }

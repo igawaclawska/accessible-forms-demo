@@ -13,11 +13,7 @@ export const validate = (values) => {
   } else {
     const pwd = values.password;
     const hasMinLen = pwd.length >= 8;
-    const hasUpper = /[A-Z]/.test(pwd);
-    const hasLower = /[a-z]/.test(pwd);
-    const hasNumber = /[0-9]/.test(pwd);
-    const hasSpecial = /[^A-Za-z0-9]/.test(pwd);
-    if (!(hasMinLen && hasUpper && hasLower && hasNumber && hasSpecial)) {
+    if (!hasMinLen) {
       errors.password = "Please use a valid password format.";
     }
   }

@@ -6,38 +6,35 @@ export default function CheckboxGroup({
   options,
   selected,
   onChange,
-  onBlur,
   error,
-  inputRef,
 }) {
   const errorId = `checkbox-group-error-${label.replace(/\s/g, "")}`;
+
   return (
-    <fieldset
-      className={styles.styledCheckboxGroup}
-      aria-describedby={error ? errorId : undefined}
-    >
-      <legend className={styles.groupLabel}>{label}</legend>
-      {options.map((option, idx) => (
-        <div className={styles.optionWrapper} key={option.value}>
-          <input
-            ref={inputRef ? inputRef[idx] : undefined}
-            type="checkbox"
-            id={`interest-${option.value}`}
-            value={option.value}
-            checked={selected.includes(option.value)}
-            onChange={() => onChange(option.value)}
-            onBlur={onBlur}
-            className={styles.hiddenInput}
-          />
-          <label
-            htmlFor={`interest-${option.value}`}
-            className={styles.optionLabel}
+    <div className={styles.styledCheckboxGroup}>
+      <div className={styles.groupLabel}>{label}</div>
+
+      {options.map((option) => {
+        const isChecked = selected.includes(option.value);
+
+        return (
+          <div
+            key={option.value}
+            onClick={() => onChange(option.value)}
+            className={styles.optionWrapper}
           >
-            {option.label}
-          </label>
-        </div>
-      ))}
+            <div
+              className={`${styles.optionLabel} ${
+                isChecked ? styles.checked : ""
+              }`}
+            >
+              {option.label}
+            </div>
+          </div>
+        );
+      })}
+
       <ErrorMessage error={error} id={`${errorId}Error`} />
-    </fieldset>
+    </div>
   );
 }

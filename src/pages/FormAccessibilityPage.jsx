@@ -48,7 +48,6 @@ export default function FormAccessibilityPage() {
     accepted: useRef(null),
   };
 
-  // Focus and scroll to first error field after errors change
   useEffect(() => {
     const fieldOrder = [
       "fullName",
@@ -67,7 +66,6 @@ export default function FormAccessibilityPage() {
     const ref = refs[firstError];
     const errorValue = errors[firstError];
 
-    // Generic helper for array errors
     const getErrorIndex = (errorArr) =>
       Array.isArray(errorArr) ? errorArr.findIndex(Boolean) || 0 : 0;
 
@@ -210,10 +208,10 @@ export default function FormAccessibilityPage() {
       </main>
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
-          <p className={styles.footerBrand}>BrightPath Solutions</p>
+          <p className={styles.footerBrand}>Accessible Forms Demo</p>
           <nav className={styles.footerNav} aria-label="Footer">
             <a
-              href="https://github.com/"
+              href=""
               target="_blank"
               rel="noopener noreferrer"
               className={styles.footerLink}
@@ -225,7 +223,7 @@ export default function FormAccessibilityPage() {
             </a>
           </nav>
           <p className={styles.footerCopyright}>
-            &copy; {new Date().getFullYear()} BrightPath Solutions. All rights
+            &copy; {new Date().getFullYear()} Accessible Forms Demo. All rights
             reserved.
           </p>
         </div>

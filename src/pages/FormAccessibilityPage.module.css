@@ -19,7 +19,6 @@ header {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
-/* Form layout */
 .form {
   max-width: 500px;
   margin: 0 auto;
@@ -86,19 +85,16 @@ button[type="submit"]:focus {
   background: #003e8a;
 }
 
-/* Utility classes */
 .invisible {
   display: none;
 }
 
-/* Checkbox and radio layout */
 input[type="checkbox"],
 input[type="radio"] {
   width: auto;
   margin-right: 0.5rem;
 }
 
-/* Footer */
 .footer {
   background-color: var(--background-color);
   display: flex;
@@ -132,7 +128,6 @@ input[type="radio"] {
   margin-right: auto;
 }
 
-/* Header suggestion */
 .headerContent {
   display: flex;
   align-items: center;
@@ -141,7 +136,6 @@ input[type="radio"] {
 }
 
 .headerContent {
-  /* max-width: 900px; */
   margin: 0 auto;
   display: flex;
   align-items: center;
