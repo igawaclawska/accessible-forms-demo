@@ -1,0 +1,10 @@
+.inputContainer {
+  margin-bottom: 1.5em;
+}
+
+.helperText {
+  font-size: 0.95em;
+  color: #555;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
