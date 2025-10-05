@@ -64,6 +64,7 @@ export default function FormAccessibilityPage() {
             <TextInputPoorA11y
               id="fullName"
               label="Full Name"
+              name="fullName"
               value={formData.fullName}
               onChange={handleChange(FIELD.FULL_NAME)}
               error={errors.fullName}
@@ -72,6 +73,7 @@ export default function FormAccessibilityPage() {
             <TextInputPoorA11y
               id="email"
               label="Email Address"
+              name="email"
               value={formData.email}
               onChange={handleChange(FIELD.EMAIL)}
               error={errors.email}
@@ -81,6 +83,7 @@ export default function FormAccessibilityPage() {
             <PasswordInputPoorA11y
               id="password"
               label="Password"
+              name="password"
               value={formData.password}
               onChange={handleChange(FIELD.PASSWORD)}
               error={errors.password}
@@ -90,6 +93,7 @@ export default function FormAccessibilityPage() {
             <SelectInputPoorA11y
               id="jobTitle"
               label="Job Title"
+              name="jobTitle"
               value={formData.jobTitle}
               onChange={handleChange(FIELD.JOB_TITLE)}
               required
@@ -99,6 +103,7 @@ export default function FormAccessibilityPage() {
 
             <CheckboxGroupPoorA11y
               label="Select your interests:"
+              name="interests"
               options={interestOptions}
               selected={formData.interests}
               onChange={handleMultipleChoice}
@@ -107,6 +112,7 @@ export default function FormAccessibilityPage() {
 
             <RadioGroupPoorA11y
               label="Team Size"
+              name="teamSize"
               options={teamSizeOptions}
               selected={formData.teamSize}
               onChange={handleChange(FIELD.TEAM_SIZE)}
@@ -116,6 +122,7 @@ export default function FormAccessibilityPage() {
             <TextareaInputPoorA11y
               id="additionalComments"
               label="Additional Comments"
+              name="additionalComments"
               value={formData.additionalComments}
               onChange={handleAdditionalCommentsChange}
               error={errors.additionalComments}
@@ -128,6 +135,7 @@ export default function FormAccessibilityPage() {
               onChange={handleChange(FIELD.ACCEPTED)}
               error={errors.accepted}
               id="terms"
+              name="terms"
             />
 
             <button type="submit">Register</button>

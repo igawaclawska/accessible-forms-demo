@@ -3,6 +3,7 @@ import ErrorMessageBetterA11y from "./ErrorMessageBetterA11y";
 
 export default function CheckboxGroupBetterA11y({
   label,
+  name,
   options,
   selected,
   onChange,
@@ -10,7 +11,8 @@ export default function CheckboxGroupBetterA11y({
   error,
   inputRef,
 }) {
-  const errorId = error ? `${id}-error` : "";
+  const groupName = name || label.replace(/\s/g, "").toLowerCase();
+  const errorId = error ? `${groupName}-error` : "";
 
   return (
     <fieldset
@@ -24,6 +26,7 @@ export default function CheckboxGroupBetterA11y({
             ref={inputRef ? inputRef[idx] : undefined}
             type="checkbox"
             id={`interest-${option.value}`}
+            name={groupName}
             value={option.value}
             checked={selected.includes(option.value)}
             onChange={() => onChange(option.value)}

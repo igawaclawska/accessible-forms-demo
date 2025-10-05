@@ -4,6 +4,7 @@ import ErrorMessagePoorA11y from "./ErrorMessagePoorA11y";
 export default function CheckboxWithLabelPoorA11y({
   accepted,
   onChange,
+  name,
   error,
   id = "terms",
   inputRef,
@@ -14,6 +15,7 @@ export default function CheckboxWithLabelPoorA11y({
         <input
           ref={inputRef}
           id={id}
+          name={name}
           type="checkbox"
           checked={accepted}
           onChange={onChange}

@@ -4,6 +4,7 @@ import styles from "./TextareaInputPoorA11y.module.css";
 export default function TextareaInputPoorA11y({
   id,
   label,
+  name,
   value,
   onChange,
   error,
@@ -15,6 +16,7 @@ export default function TextareaInputPoorA11y({
       <label>{label}</label>
       <textarea
         id={id}
+        name={name}
         rows={5}
         value={value}
         onChange={onChange}

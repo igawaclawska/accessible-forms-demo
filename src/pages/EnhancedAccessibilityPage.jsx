@@ -92,6 +92,7 @@ export default function FormAccessibilityPage() {
             <TextInputBetterA11y
               id="fullName"
               label="Full Name"
+              name="fullName"
               value={formData.fullName}
               onChange={handleChange(FIELD.FULL_NAME)}
               onBlur={handleBlur(FIELD.FULL_NAME)}
@@ -104,6 +105,7 @@ export default function FormAccessibilityPage() {
             <TextInputBetterA11y
               id="email"
               label="Email Address"
+              name="email"
               value={formData.email}
               onChange={handleChange(FIELD.EMAIL)}
               onBlur={handleBlur(FIELD.EMAIL)}
@@ -117,6 +119,7 @@ export default function FormAccessibilityPage() {
             <PasswordInputBetterA11y
               id="password"
               label="Password"
+              name="password"
               value={formData.password}
               onChange={handleChange(FIELD.PASSWORD)}
               onBlur={handleBlur(FIELD.PASSWORD)}
@@ -129,6 +132,7 @@ export default function FormAccessibilityPage() {
             <SelectInputBetterA11y
               id="jobTitle"
               label="Job Title"
+              name="jobTitle"
               value={formData.jobTitle}
               onChange={handleChange(FIELD.JOB_TITLE)}
               onBlur={handleBlur(FIELD.JOB_TITLE)}
@@ -140,6 +144,7 @@ export default function FormAccessibilityPage() {
 
             <CheckboxGroupBetterA11y
               label="Select your interests:"
+              name="interests"
               options={interestOptions}
               selected={formData.interests}
               onChange={handleMultipleChoice}
@@ -150,6 +155,7 @@ export default function FormAccessibilityPage() {
 
             <RadioGroupBetterA11y
               label="Team Size"
+              name="teamSize"
               options={teamSizeOptions}
               selected={formData.teamSize}
               onChange={handleChange(FIELD.TEAM_SIZE)}
@@ -161,6 +167,7 @@ export default function FormAccessibilityPage() {
             <TextareaInputBetterA11y
               id="additionalComments"
               label="Additional Comments"
+              name="additionalComments"
               value={formData.additionalComments}
               onChange={handleAdditionalCommentsChange}
               onBlur={handleBlur(FIELD.ADDITIONAL_COMMENTS)}
@@ -177,6 +184,7 @@ export default function FormAccessibilityPage() {
               onBlur={handleBlur(FIELD.ACCEPTED)}
               error={errors.accepted}
               id="terms"
+              name="terms"
               inputRef={refs.accepted}
             />
 

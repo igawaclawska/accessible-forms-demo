@@ -5,6 +5,7 @@ export default function SelectInputPoorA11y({
   id,
   label,
   value,
+  name,
   onChange,
   options,
   error,
@@ -15,7 +16,7 @@ export default function SelectInputPoorA11y({
       <label>{label}</label>
       <select ref={inputRef} id={id} value={value} onChange={onChange}>
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option key={option.value} value={option.value} name={name}>
             {option.label}
           </option>
         ))}

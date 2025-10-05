@@ -4,6 +4,7 @@ import styles from "./TextInputPoorA11y.module.css";
 export default function TextInputPoorA11y({
   id,
   label,
+  name,
   value,
   onChange,
   error,
@@ -15,6 +16,7 @@ export default function TextInputPoorA11y({
       <input
         id={id}
         type="text"
+        name={name}
         value={value}
         onChange={onChange}
         placeholder={helperText}

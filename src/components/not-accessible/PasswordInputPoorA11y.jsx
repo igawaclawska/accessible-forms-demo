@@ -4,6 +4,7 @@ import styles from "./PasswordInputPoorA11y.module.css";
 export default function PasswordInputPoorA11y({
   id,
   label,
+  name,
   value,
   onChange,
   error,
@@ -17,6 +18,7 @@ export default function PasswordInputPoorA11y({
       <input
         ref={inputRef}
         id={id}
+        name={name}
         value={value}
         onChange={onChange}
         placeholder={helperText}
