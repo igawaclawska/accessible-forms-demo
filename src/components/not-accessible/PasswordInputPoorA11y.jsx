@@ -21,7 +21,7 @@ export default function PasswordInputPoorA11y({
         onChange={onChange}
         placeholder={helperText}
       />
-      <ErrorMessagePoorA11y error={error} id={`${id}Error`} />
+      <ErrorMessagePoorA11y error={error} />
     </div>
   );
 }

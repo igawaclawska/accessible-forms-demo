@@ -14,6 +14,9 @@ export default function TextInputBetterA11y({
   helperText,
   inputRef,
 }) {
+  const helperId = helperText ? `${id}-helper` : "";
+  const errorId = errorMessage ? `${id}-error` : "";
+
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={id}>{label}</label>
@@ -27,16 +30,10 @@ export default function TextInputBetterA11y({
         autoComplete={autoComplete}
         required={required}
         aria-invalid={!!error}
-        aria-describedby={
-          error
-            ? `${id}Error${helperText ? ` ${id}Help` : ""}`
-            : helperText
-            ? `${id}Help`
-            : undefined
-        }
+        aria-describedby={`${helperId} ${errorId}`}
       />
-      <HelperTextBetterA11y id={id} helperText={helperText} />
-      <ErrorMessageBetterA11y error={error} id={`${id}Error`} />
+      <HelperTextBetterA11y id={helperId} helperText={helperText} />
+      <ErrorMessageBetterA11y error={error} id={errorId} />
     </div>
   );
 }

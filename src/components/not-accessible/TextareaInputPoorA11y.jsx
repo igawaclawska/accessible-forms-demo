@@ -21,7 +21,7 @@ export default function TextareaInputPoorA11y({
         maxLength={maxLength}
         placeholder={helperText}
       />
-      <ErrorMessagePoorA11y error={error} id={`${id}Error`} />
+      <ErrorMessagePoorA11y error={error} />
     </div>
   );
 }

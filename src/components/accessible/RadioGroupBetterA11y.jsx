@@ -12,12 +12,12 @@ export default function RadioGroupBetterA11y({
   inputRef,
 }) {
   const groupName = name || label.replace(/\s/g, "").toLowerCase();
-  const errorId = `radio-group-error-${label.replace(/\s/g, "")}`;
+  const errorId = errorMessage ? `${id}-error` : "";
 
   return (
     <fieldset
       className={styles.styledRadioGroup}
-      aria-describedby={error ? `${groupName}Error` : undefined}
+      aria-describedby={`${errorId}`}
     >
       <legend className={styles.radioGroupLabel}>{label}:</legend>
       {options.map((option, idx) => {
@@ -45,7 +45,7 @@ export default function RadioGroupBetterA11y({
           </div>
         );
       })}
-      <ErrorMessageBetterA11y error={error} id={`${errorId}Error`} />
+      <ErrorMessageBetterA11y error={error} id={errorId} />
     </fieldset>
   );
 }

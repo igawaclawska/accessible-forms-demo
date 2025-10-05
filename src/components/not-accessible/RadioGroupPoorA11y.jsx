@@ -10,7 +10,6 @@ export default function RadioGroupPoorA11y({
   name,
 }) {
   const groupName = name || label.replace(/\s/g, "").toLowerCase();
-  const errorId = `radio-group-error-${label.replace(/\s/g, "")}`;
 
   const handleClick = (value) => {
     if (onChange) {
@@ -46,7 +45,7 @@ export default function RadioGroupPoorA11y({
         );
       })}
 
-      <ErrorMessagePoorA11y error={error} id={`${errorId}Error`} />
+      <ErrorMessagePoorA11y error={error} />
     </div>
   );
 }

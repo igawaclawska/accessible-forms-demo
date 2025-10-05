@@ -19,7 +19,7 @@ export default function TextInputPoorA11y({
         onChange={onChange}
         placeholder={helperText}
       />
-      <ErrorMessagePoorA11y error={error} id={`${id}Error`} />
+      <ErrorMessagePoorA11y error={error} />
     </div>
   );
 }

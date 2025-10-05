@@ -17,6 +17,9 @@ export default function PasswordInputBetterA11y({
 }) {
   const [showPassword, setShowPassword] = useState(false);
 
+  const helperId = helperText ? `${id}-helper` : "";
+  const errorId = errorMessage ? `${id}-error` : "";
+
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={id}>{label}</label>
@@ -31,7 +34,7 @@ export default function PasswordInputBetterA11y({
           autoComplete="new-password"
           required={required}
           aria-invalid={!!error}
-          aria-describedby={error ? `${id}Error ${id}Help` : `${id}Help`}
+          aria-describedby={`${helperId} ${errorId}`}
         />
         <button
           className={styles.eyeButton}
@@ -44,8 +47,8 @@ export default function PasswordInputBetterA11y({
           <EyeIcon isOpen={showPassword} />
         </button>
       </div>
-      <HelperTextBetterA11y id={id} helperText={helperText} />
-      <ErrorMessageBetterA11y error={error} id={`${id}Error`} />
+      <HelperTextBetterA11y id={helperId} helperText={helperText} />
+      <ErrorMessageBetterA11y error={error} id={errorId} />
     </div>
   );
 }

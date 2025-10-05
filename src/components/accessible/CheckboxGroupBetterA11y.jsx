@@ -10,11 +10,12 @@ export default function CheckboxGroupBetterA11y({
   error,
   inputRef,
 }) {
-  const errorId = `checkbox-group-error-${label.replace(/\s/g, "")}`;
+  const errorId = errorMessage ? `${id}-error` : "";
+
   return (
     <fieldset
       className={styles.styledCheckboxGroup}
-      aria-describedby={error ? errorId : undefined}
+      aria-describedby={`${helperId} ${errorId}`}
     >
       <legend className={styles.groupLabel}>{label}</legend>
       {options.map((option, idx) => (
@@ -29,7 +30,7 @@ export default function CheckboxGroupBetterA11y({
             onBlur={onBlur}
             className={styles.hiddenInput}
             aria-invalid={!!error}
-            aria-describedby={error ? errorId : undefined}
+            aria-describedby={`${errorId}`}
           />
           <label
             htmlFor={`interest-${option.value}`}
@@ -39,7 +40,7 @@ export default function CheckboxGroupBetterA11y({
           </label>
         </div>
       ))}
-      <ErrorMessageBetterA11y error={error} id={`${errorId}Error`} />
+      <ErrorMessageBetterA11y error={error} id={errorId} />
     </fieldset>
   );
 }

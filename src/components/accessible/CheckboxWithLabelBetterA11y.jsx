@@ -10,6 +10,8 @@ export default function CheckboxWithLabelBetterA11y({
   id = "terms",
   inputRef,
 }) {
+  const errorId = errorMessage ? `${id}-error` : "";
+
   return (
     <div className={styles.inputContainer}>
       <div className={styles.checkboxContainer}>
@@ -22,7 +24,7 @@ export default function CheckboxWithLabelBetterA11y({
           onBlur={onBlur}
           required={required}
           aria-invalid={!!error}
-          aria-describedby={error ? `${id}Error` : undefined}
+          aria-describedby={`${errorId}`}
         />
         <label htmlFor={id}>
           I agree to the{" "}
@@ -36,7 +38,7 @@ export default function CheckboxWithLabelBetterA11y({
           </a>
         </label>
       </div>
-      <ErrorMessageBetterA11y error={error} id={`${id}Error`} />
+      <ErrorMessageBetterA11y error={error} id={errorId} />
     </div>
   );
 }

@@ -8,8 +8,6 @@ export default function CheckboxGroupPoorA11y({
   onChange,
   error,
 }) {
-  const errorId = `checkbox-group-error-${label.replace(/\s/g, "")}`;
-
   return (
     <div className={styles.styledCheckboxGroup}>
       <div className={styles.groupLabel}>{label}</div>
@@ -34,7 +32,7 @@ export default function CheckboxGroupPoorA11y({
         );
       })}
 
-      <ErrorMessagePoorA11y error={error} id={`${errorId}Error`} />
+      <ErrorMessagePoorA11y error={error} />
     </div>
   );
 }

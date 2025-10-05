@@ -20,7 +20,7 @@ export default function SelectInputPoorA11y({
           </option>
         ))}
       </select>
-      <ErrorMessagePoorA11y error={error} id={`${id}Error`} />
+      <ErrorMessagePoorA11y error={error} />
     </div>
   );
 }

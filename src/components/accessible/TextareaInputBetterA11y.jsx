@@ -12,6 +12,9 @@ export default function TextareaInputBetterA11y({
   helperText,
   maxLength,
 }) {
+  const helperId = helperText ? `${id}-helper` : "";
+  const errorId = errorMessage ? `${id}-error` : "";
+
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={id}>{label}</label>
@@ -21,12 +24,12 @@ export default function TextareaInputBetterA11y({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        aria-describedby={error ? `${id}Error ${id}Help` : `${id}Help`}
+        aria-describedby={`${helperId} ${errorId}`}
         aria-invalid={!!error}
         maxLength={maxLength}
       />
-      <HelperTextBetterA11y id={id} helperText={helperText} />
-      <ErrorMessageBetterA11y error={error} id={`${id}Error`} />
+      <HelperTextBetterA11y id={helperId} helperText={helperText} />
+      <ErrorMessageBetterA11y error={error} id={errorId} />
     </div>
   );
 }

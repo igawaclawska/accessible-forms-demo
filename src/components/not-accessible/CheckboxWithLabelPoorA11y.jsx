@@ -30,7 +30,7 @@ export default function CheckboxWithLabelPoorA11y({
           </a>
         </label>
       </div>
-      <ErrorMessagePoorA11y error={error} id={`${id}Error`} />
+      <ErrorMessagePoorA11y error={error} />
     </div>
   );
 }

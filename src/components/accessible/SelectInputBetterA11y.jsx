@@ -12,6 +12,8 @@ export default function SelectInputBetterA11y({
   error,
   inputRef,
 }) {
+  const errorId = errorMessage ? `${id}-error` : "";
+
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={id}>{label}</label>
@@ -23,7 +25,7 @@ export default function SelectInputBetterA11y({
         onBlur={onBlur}
         required={required}
         aria-invalid={!!error}
-        aria-describedby={error ? `${id}Error` : undefined}
+        aria-describedby={`${errorId}`}
       >
         {options.map((option) => (
           <option key={option.value} value={option.value}>
@@ -31,7 +33,7 @@ export default function SelectInputBetterA11y({
           </option>
         ))}
       </select>
-      <ErrorMessageBetterA11y error={error} id={`${id}Error`} />
+      <ErrorMessageBetterA11y error={error} id={errorId} />
     </div>
   );
 }
