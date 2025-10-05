@@ -13,7 +13,7 @@ export default function TextareaInputBetterA11y({
   maxLength,
 }) {
   const helperId = helperText ? `${id}-helper` : "";
-  const errorId = errorMessage ? `${id}-error` : "";
+  const errorId = error ? `${id}-error` : "";
 
   return (
     <div className={styles.inputContainer}>

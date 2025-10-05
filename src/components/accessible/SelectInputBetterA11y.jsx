@@ -12,7 +12,7 @@ export default function SelectInputBetterA11y({
   error,
   inputRef,
 }) {
-  const errorId = errorMessage ? `${id}-error` : "";
+  const errorId = error ? `${id}-error` : "";
 
   return (
     <div className={styles.inputContainer}>

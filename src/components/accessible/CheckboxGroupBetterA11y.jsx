@@ -10,12 +10,12 @@ export default function CheckboxGroupBetterA11y({
   error,
   inputRef,
 }) {
-  const errorId = errorMessage ? `${id}-error` : "";
+  const errorId = error ? `${id}-error` : "";
 
   return (
     <fieldset
       className={styles.styledCheckboxGroup}
-      aria-describedby={`${helperId} ${errorId}`}
+      aria-describedby={`${errorId}`}
     >
       <legend className={styles.groupLabel}>{label}</legend>
       {options.map((option, idx) => (

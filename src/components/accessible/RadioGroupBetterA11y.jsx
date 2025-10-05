@@ -12,7 +12,7 @@ export default function RadioGroupBetterA11y({
   inputRef,
 }) {
   const groupName = name || label.replace(/\s/g, "").toLowerCase();
-  const errorId = errorMessage ? `${id}-error` : "";
+  const errorId = error ? `${id}-error` : "";
 
   return (
     <fieldset

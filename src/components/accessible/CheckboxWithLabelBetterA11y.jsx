@@ -10,7 +10,7 @@ export default function CheckboxWithLabelBetterA11y({
   id = "terms",
   inputRef,
 }) {
-  const errorId = errorMessage ? `${id}-error` : "";
+  const errorId = error ? `${id}-error` : "";
 
   return (
     <div className={styles.inputContainer}>

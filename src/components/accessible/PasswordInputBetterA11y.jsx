@@ -18,7 +18,7 @@ export default function PasswordInputBetterA11y({
   const [showPassword, setShowPassword] = useState(false);
 
   const helperId = helperText ? `${id}-helper` : "";
-  const errorId = errorMessage ? `${id}-error` : "";
+  const errorId = error ? `${id}-error` : "";
 
   return (
     <div className={styles.inputContainer}>

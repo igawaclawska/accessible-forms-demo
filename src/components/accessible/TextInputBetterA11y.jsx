@@ -15,7 +15,7 @@ export default function TextInputBetterA11y({
   inputRef,
 }) {
   const helperId = helperText ? `${id}-helper` : "";
-  const errorId = errorMessage ? `${id}-error` : "";
+  const errorId = error ? `${id}-error` : "";
 
   return (
     <div className={styles.inputContainer}>
