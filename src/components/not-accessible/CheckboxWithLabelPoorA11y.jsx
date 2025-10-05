@@ -1,7 +1,7 @@
-import styles from "./CheckboxWithLabel.module.css";
-import ErrorMessage from "./ErrorMessage";
+import styles from "./CheckboxWithLabelPoorA11y.module.css";
+import ErrorMessagePoorA11y from "./ErrorMessagePoorA11y";
 
-export default function CheckboxWithLabel({
+export default function CheckboxWithLabelPoorA11y({
   accepted,
   onChange,
   error,
@@ -30,7 +30,7 @@ export default function CheckboxWithLabel({
           </a>
         </label>
       </div>
-      <ErrorMessage error={error} id={`${id}Error`} />
+      <ErrorMessagePoorA11y error={error} id={`${id}Error`} />
     </div>
   );
 }

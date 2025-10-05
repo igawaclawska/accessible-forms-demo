@@ -1,7 +1,7 @@
-import ErrorMessage from "./ErrorMessage";
-import styles from "./RadioGroup.module.css";
+import ErrorMessagePoorA11y from "./ErrorMessagePoorA11y";
+import styles from "./RadioGroupPoorA11y.module.css";
 
-export default function RadioGroup({
+export default function RadioGroupPoorA11y({
   label,
   options,
   selected,
@@ -19,11 +19,7 @@ export default function RadioGroup({
   };
 
   return (
-    <div
-      className={styles.styledRadioGroup}
-      role="radiogroup"
-      aria-labelledby={`${groupName}-label`}
-    >
+    <div className={styles.styledRadioGroup}>
       <label className={styles.radioGroupLabel}>{label}:</label>
 
       {options.map((option) => {
@@ -50,7 +46,7 @@ export default function RadioGroup({
         );
       })}
 
-      <ErrorMessage error={error} id={`${errorId}Error`} />
+      <ErrorMessagePoorA11y error={error} id={`${errorId}Error`} />
     </div>
   );
 }

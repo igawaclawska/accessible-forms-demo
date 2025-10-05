@@ -1,7 +1,7 @@
-import styles from "./CheckboxGroup.module.css";
-import ErrorMessage from "./ErrorMessage";
+import styles from "./CheckboxGroupPoorA11y.module.css";
+import ErrorMessagePoorA11y from "./ErrorMessagePoorA11y";
 
-export default function CheckboxGroup({
+export default function CheckboxGroupPoorA11y({
   label,
   options,
   selected,
@@ -34,7 +34,7 @@ export default function CheckboxGroup({
         );
       })}
 
-      <ErrorMessage error={error} id={`${errorId}Error`} />
+      <ErrorMessagePoorA11y error={error} id={`${errorId}Error`} />
     </div>
   );
 }

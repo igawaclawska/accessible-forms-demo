@@ -1,25 +1,27 @@
-import ErrorMessage from "./ErrorMessage";
-import styles from "./TextInput.module.css";
+import ErrorMessagePoorA11y from "./ErrorMessagePoorA11y";
+import styles from "./PasswordInputPoorA11y.module.css";
 
-export default function TextInput({
+export default function PasswordInputPoorA11y({
   id,
   label,
   value,
   onChange,
   error,
   helperText,
+  inputRef,
 }) {
   return (
     <div className={styles.inputContainer}>
       <label>{label}</label>
+
       <input
+        ref={inputRef}
         id={id}
-        type="text"
         value={value}
         onChange={onChange}
         placeholder={helperText}
       />
-      <ErrorMessage error={error} id={`${id}Error`} />
+      <ErrorMessagePoorA11y error={error} id={`${id}Error`} />
     </div>
   );
 }

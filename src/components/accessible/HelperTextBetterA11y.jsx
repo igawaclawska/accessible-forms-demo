@@ -1,6 +1,6 @@
-import styles from "./HelperText.module.css";
+import styles from "./HelperTextBetterA11y.module.css";
 
-export default function HelperText({ id, helperText }) {
+export default function HelperTextBetterA11y({ id, helperText }) {
   if (!helperText) return null;
   return (
     <p id={`${id}Help`} className={styles.helperText}>

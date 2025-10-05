@@ -1,7 +1,7 @@
-import styles from "./CheckboxGroup.module.css";
-import ErrorMessage from "./ErrorMessage";
+import styles from "./CheckboxGroupBetterA11y.module.css";
+import ErrorMessageBetterA11y from "./ErrorMessageBetterA11y";
 
-export default function CheckboxGroup({
+export default function CheckboxGroupBetterA11y({
   label,
   options,
   selected,
@@ -39,7 +39,7 @@ export default function CheckboxGroup({
           </label>
         </div>
       ))}
-      <ErrorMessage error={error} id={`${errorId}Error`} />
+      <ErrorMessageBetterA11y error={error} id={`${errorId}Error`} />
     </fieldset>
   );
 }

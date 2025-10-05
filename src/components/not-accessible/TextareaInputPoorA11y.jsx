@@ -1,7 +1,7 @@
-import ErrorMessage from "./ErrorMessage";
-import styles from "./TextareaInput.module.css";
+import ErrorMessagePoorA11y from "./ErrorMessagePoorA11y";
+import styles from "./TextareaInputPoorA11y.module.css";
 
-export default function TextareaInput({
+export default function TextareaInputPoorA11y({
   id,
   label,
   value,
@@ -21,7 +21,7 @@ export default function TextareaInput({
         maxLength={maxLength}
         placeholder={helperText}
       />
-      <ErrorMessage error={error} id={`${id}Error`} />
+      <ErrorMessagePoorA11y error={error} id={`${id}Error`} />
     </div>
   );
 }

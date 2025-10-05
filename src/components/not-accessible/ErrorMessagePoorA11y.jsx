@@ -1,7 +1,7 @@
 import ErrorIcon from "./icons/ErrorIcon";
-import styles from "./ErrorMessage.module.css";
+import styles from "./ErrorMessagePoorA11y.module.css";
 
-export default function ErrorMessage({ error, id }) {
+export default function ErrorMessagePoorA11y({ error, id }) {
   if (!error) return null;
   return (
     <div className={styles.errorMsg} id={id}>

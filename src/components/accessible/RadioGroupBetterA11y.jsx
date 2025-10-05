@@ -1,7 +1,7 @@
-import ErrorMessage from "./ErrorMessage";
-import styles from "./RadioGroup.module.css";
+import ErrorMessageBetterA11y from "./ErrorMessageBetterA11y";
+import styles from "./RadioGroupBetterA11y.module.css";
 
-export default function RadioGroup({
+export default function RadioGroupBetterA11y({
   label,
   options,
   selected,
@@ -45,7 +45,7 @@ export default function RadioGroup({
           </div>
         );
       })}
-      <ErrorMessage error={error} id={`${errorId}Error`} />
+      <ErrorMessageBetterA11y error={error} id={`${errorId}Error`} />
     </fieldset>
   );
 }

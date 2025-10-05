@@ -1,11 +1,11 @@
 import styles from "./FormAccessibilityPage.module.css";
-import TextInput from "../components/not-accessible/TextInput";
-import PasswordInput from "../components/not-accessible/PasswordInput";
-import SelectInput from "../components/not-accessible/SelectInput";
-import CheckboxGroup from "../components/not-accessible/CheckboxGroup";
-import RadioGroup from "../components/not-accessible/RadioGroup";
-import TextareaInput from "../components/not-accessible/TextareaInput";
-import CheckboxWithLabel from "../components/not-accessible/CheckboxWithLabel";
+import TextInputPoorA11y from "../components/not-accessible/TextInputPoorA11y";
+import PasswordInputPoorA11y from "../components/not-accessible/PasswordInputPoorA11y";
+import SelectInputPoorA11y from "../components/not-accessible/SelectInputPoorA11y";
+import CheckboxGroupPoorA11y from "../components/not-accessible/CheckboxGroupPoorA11y";
+import RadioGroupPoorA11y from "../components/not-accessible/RadioGroupPoorA11y";
+import TextareaInputPoorA11y from "../components/not-accessible/TextareaInputPoorA11y";
+import CheckboxWithLabelPoorA11y from "../components/not-accessible/CheckboxWithLabelPoorA11y";
 import {
   teamSizeOptions,
   interestOptions,
@@ -61,7 +61,7 @@ export default function FormAccessibilityPage() {
             noValidate
             className={styles.form}
           >
-            <TextInput
+            <TextInputPoorA11y
               id="fullName"
               label="Full Name"
               value={formData.fullName}
@@ -69,7 +69,7 @@ export default function FormAccessibilityPage() {
               error={errors.fullName}
             />
 
-            <TextInput
+            <TextInputPoorA11y
               id="email"
               label="Email Address"
               value={formData.email}
@@ -78,7 +78,7 @@ export default function FormAccessibilityPage() {
               helperText="Enter a valid email address (e.g., name@example.com)."
             />
 
-            <PasswordInput
+            <PasswordInputPoorA11y
               id="password"
               label="Password"
               value={formData.password}
@@ -87,7 +87,7 @@ export default function FormAccessibilityPage() {
               helperText="Must be at least 8 characters."
             />
 
-            <SelectInput
+            <SelectInputPoorA11y
               id="jobTitle"
               label="Job Title"
               value={formData.jobTitle}
@@ -97,7 +97,7 @@ export default function FormAccessibilityPage() {
               error={errors.jobTitle}
             />
 
-            <CheckboxGroup
+            <CheckboxGroupPoorA11y
               label="Select your interests:"
               options={interestOptions}
               selected={formData.interests}
@@ -105,7 +105,7 @@ export default function FormAccessibilityPage() {
               error={errors.interests}
             />
 
-            <RadioGroup
+            <RadioGroupPoorA11y
               label="Team Size"
               options={teamSizeOptions}
               selected={formData.teamSize}
@@ -113,7 +113,7 @@ export default function FormAccessibilityPage() {
               error={errors.teamSize}
             />
 
-            <TextareaInput
+            <TextareaInputPoorA11y
               id="additionalComments"
               label="Additional Comments"
               value={formData.additionalComments}
@@ -123,7 +123,7 @@ export default function FormAccessibilityPage() {
               maxLength={500}
             />
 
-            <CheckboxWithLabel
+            <CheckboxWithLabelPoorA11y
               accepted={formData.accepted}
               onChange={handleChange(FIELD.ACCEPTED)}
               error={errors.accepted}

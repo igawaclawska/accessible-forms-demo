@@ -1,10 +1,10 @@
 import { useState } from "react";
-import ErrorMessage from "./ErrorMessage";
-import styles from "./PasswordInput.module.css";
-import HelperText from "./HelperText";
+import ErrorMessageBetterA11y from "./ErrorMessageBetterA11y";
+import styles from "./PasswordInputBetterA11y.module.css";
+import HelperTextBetterA11y from "./HelperTextBetterA11y";
 import EyeIcon from "./icons/EyeIcon";
 
-export default function PasswordInput({
+export default function PasswordInputBetterA11y({
   id,
   label,
   value,
@@ -44,8 +44,8 @@ export default function PasswordInput({
           <EyeIcon isOpen={showPassword} />
         </button>
       </div>
-      <HelperText id={id} helperText={helperText} />
-      <ErrorMessage error={error} id={`${id}Error`} />
+      <HelperTextBetterA11y id={id} helperText={helperText} />
+      <ErrorMessageBetterA11y error={error} id={`${id}Error`} />
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import { useRef } from "react";
 import useFocusFirstErrorField from "../hooks/useFocusErrorField";
 import styles from "./FormAccessibilityPage.module.css";
-import TextInput from "../components/accessible/TextInput";
-import PasswordInput from "../components/accessible/PasswordInput";
-import SelectInput from "../components/accessible/SelectInput";
-import CheckboxGroup from "../components/accessible/CheckboxGroup";
-import RadioGroup from "../components/accessible/RadioGroup";
-import TextareaInput from "../components/accessible/TextareaInput";
-import CheckboxWithLabel from "../components/accessible/CheckboxWithLabel";
+import TextInputBetterA11y from "../components/accessible/TextInputBetterA11y";
+import PasswordInputBetterA11y from "../components/accessible/PasswordInputBetterA11y";
+import SelectInputBetterA11y from "../components/accessible/SelectInputBetterA11y";
+import CheckboxGroupBetterA11y from "../components/accessible/CheckboxGroupBetterA11y";
+import RadioGroupBetterA11y from "../components/accessible/RadioGroupBetterA11y";
+import TextareaInputBetterA11y from "../components/accessible/TextareaInputBetterA11y";
+import CheckboxWithLabelBetterA11y from "../components/accessible/CheckboxWithLabelBetterA11y";
 import {
   teamSizeOptions,
   interestOptions,
@@ -89,7 +89,7 @@ export default function FormAccessibilityPage() {
             noValidate
             className={styles.form}
           >
-            <TextInput
+            <TextInputBetterA11y
               id="fullName"
               label="Full Name"
               value={formData.fullName}
@@ -101,7 +101,7 @@ export default function FormAccessibilityPage() {
               inputRef={refs.fullName}
             />
 
-            <TextInput
+            <TextInputBetterA11y
               id="email"
               label="Email Address"
               value={formData.email}
@@ -114,7 +114,7 @@ export default function FormAccessibilityPage() {
               inputRef={refs.email}
             />
 
-            <PasswordInput
+            <PasswordInputBetterA11y
               id="password"
               label="Password"
               value={formData.password}
@@ -126,7 +126,7 @@ export default function FormAccessibilityPage() {
               inputRef={refs.password}
             />
 
-            <SelectInput
+            <SelectInputBetterA11y
               id="jobTitle"
               label="Job Title"
               value={formData.jobTitle}
@@ -138,7 +138,7 @@ export default function FormAccessibilityPage() {
               inputRef={refs.jobTitle}
             />
 
-            <CheckboxGroup
+            <CheckboxGroupBetterA11y
               label="Select your interests:"
               options={interestOptions}
               selected={formData.interests}
@@ -148,7 +148,7 @@ export default function FormAccessibilityPage() {
               inputRef={refs.interests}
             />
 
-            <RadioGroup
+            <RadioGroupBetterA11y
               label="Team Size"
               options={teamSizeOptions}
               selected={formData.teamSize}
@@ -158,7 +158,7 @@ export default function FormAccessibilityPage() {
               inputRef={refs.teamSize}
             />
 
-            <TextareaInput
+            <TextareaInputBetterA11y
               id="additionalComments"
               label="Additional Comments"
               value={formData.additionalComments}
@@ -171,7 +171,7 @@ export default function FormAccessibilityPage() {
               maxLength={500}
             />
 
-            <CheckboxWithLabel
+            <CheckboxWithLabelBetterA11y
               accepted={formData.accepted}
               onChange={handleChange(FIELD.ACCEPTED)}
               onBlur={handleBlur(FIELD.ACCEPTED)}

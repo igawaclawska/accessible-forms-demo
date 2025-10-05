@@ -1,7 +1,7 @@
-import ErrorMessage from "./ErrorMessage";
-import styles from "./SelectInput.module.css";
+import ErrorMessagePoorA11y from "./ErrorMessagePoorA11y";
+import styles from "./SelectInputPoorA11y.module.css";
 
-export default function SelectInput({
+export default function SelectInputPoorA11y({
   id,
   label,
   value,
@@ -20,7 +20,7 @@ export default function SelectInput({
           </option>
         ))}
       </select>
-      <ErrorMessage error={error} id={`${id}Error`} />
+      <ErrorMessagePoorA11y error={error} id={`${id}Error`} />
     </div>
   );
 }
