@@ -1,6 +1,6 @@
-import ErrorMessageBetterA11y from "./ErrorMessageBetterA11y";
 import styles from "./TextareaInputBetterA11y.module.css";
 import HelperTextBetterA11y from "./HelperTextBetterA11y";
+import { useEffect, useState } from "react";
 
 export default function TextareaInputBetterA11y({
   id,
@@ -15,6 +15,15 @@ export default function TextareaInputBetterA11y({
   const helperId = helperText ? `${id}-helper` : "";
   const errorId = error ? `${id}-error` : "";
 
+  const [delayedHelperText, setDelayedHelperText] = useState(helperText);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDelayedHelperText(helperText);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [helperText, value]);
+
   return (
     <div className={styles.inputContainer}>
       <label htmlFor={id}>{label}</label>
@@ -28,8 +37,16 @@ export default function TextareaInputBetterA11y({
         aria-invalid={!!error}
         maxLength={maxLength}
       />
-      <HelperTextBetterA11y id={helperId} helperText={helperText} />
-      <ErrorMessageBetterA11y error={error} id={errorId} />
+      <HelperTextBetterA11y helperText={helperText} />
+
+      {/* Screen-reader-only counter with 500ms delay */}
+      <div
+        id={helperId}
+        aria-live="polite"
+        style={{ position: "absolute", left: "-9999px" }}
+      >
+        {delayedHelperText} characters remaining
+      </div>
     </div>
   );
 }
