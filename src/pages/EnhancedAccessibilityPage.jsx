@@ -1,4 +1,5 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
+import useFocusFirstErrorField from "../hooks/useFocusErrorField";
 import styles from "./FormAccessibilityPage.module.css";
 import TextInput from "../components/accessible/TextInput";
 import PasswordInput from "../components/accessible/PasswordInput";
@@ -37,7 +38,6 @@ export default function FormAccessibilityPage() {
     additionalComments: "",
   });
 
-  // Create refs for each field
   const refs = {
     fullName: useRef(null),
     email: useRef(null),
@@ -49,43 +49,18 @@ export default function FormAccessibilityPage() {
     accepted: useRef(null),
   };
 
-  // Focus and scroll to first error field after errors change
-  useEffect(() => {
-    const fieldOrder = [
-      "fullName",
-      "email",
-      "password",
-      "jobTitle",
-      "interests",
-      "teamSize",
-      "additionalComments",
-      "accepted",
-    ];
-    const errorFields = fieldOrder.filter((key) => errors[key]);
-    if (errorFields.length === 0) return;
+  const fieldOrder = [
+    "fullName",
+    "email",
+    "password",
+    "jobTitle",
+    "interests",
+    "teamSize",
+    "additionalComments",
+    "accepted",
+  ];
 
-    const firstError = errorFields[0];
-    const ref = refs[firstError];
-    const errorValue = errors[firstError];
-
-    // Generic helper for array errors
-    const getErrorIndex = (errorArr) =>
-      Array.isArray(errorArr) ? errorArr.findIndex(Boolean) || 0 : 0;
-
-    if (Array.isArray(ref)) {
-      const errorIndex = getErrorIndex(errorValue);
-      if (ref[errorIndex]?.current) {
-        ref[errorIndex].current.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        ref[errorIndex].current.focus();
-      }
-    } else if (ref?.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
-      ref.current.focus();
-    }
-  }, [errors]);
+  useFocusFirstErrorField(errors, refs, fieldOrder);
 
   return (
     <>

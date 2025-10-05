@@ -1,4 +1,3 @@
-import { useRef, useEffect } from "react";
 import styles from "./FormAccessibilityPage.module.css";
 import TextInput from "../components/not-accessible/TextInput";
 import PasswordInput from "../components/not-accessible/PasswordInput";
@@ -22,8 +21,6 @@ export default function FormAccessibilityPage() {
     errors,
     handleChange,
     handleMultipleChoice,
-    handleBlur,
-    handleBlurMultipleChoice,
     handleAdditionalCommentsChange,
     handleSubmit,
   } = useForm({
@@ -36,54 +33,6 @@ export default function FormAccessibilityPage() {
     teamSize: "",
     additionalComments: "",
   });
-
-  const refs = {
-    fullName: useRef(null),
-    email: useRef(null),
-    password: useRef(null),
-    jobTitle: useRef(null),
-    interests: interestOptions.map(() => useRef(null)),
-    teamSize: teamSizeOptions.map(() => useRef(null)),
-    additionalComments: useRef(null),
-    accepted: useRef(null),
-  };
-
-  useEffect(() => {
-    const fieldOrder = [
-      "fullName",
-      "email",
-      "password",
-      "jobTitle",
-      "interests",
-      "teamSize",
-      "additionalComments",
-      "accepted",
-    ];
-    const errorFields = fieldOrder.filter((key) => errors[key]);
-    if (errorFields.length === 0) return;
-
-    const firstError = errorFields[0];
-    const ref = refs[firstError];
-    const errorValue = errors[firstError];
-
-    // Generic helper for array errors
-    const getErrorIndex = (errorArr) =>
-      Array.isArray(errorArr) ? errorArr.findIndex(Boolean) || 0 : 0;
-
-    if (Array.isArray(ref)) {
-      const errorIndex = getErrorIndex(errorValue);
-      if (ref[errorIndex]?.current) {
-        ref[errorIndex].current.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        ref[errorIndex].current.focus();
-      }
-    } else if (ref?.current) {
-      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
-      ref.current.focus();
-    }
-  }, [errors]);
 
   return (
     <>
@@ -117,9 +66,7 @@ export default function FormAccessibilityPage() {
               label="Full Name"
               value={formData.fullName}
               onChange={handleChange(FIELD.FULL_NAME)}
-              onBlur={handleBlur(FIELD.FULL_NAME)}
               error={errors.fullName}
-              inputRef={refs.fullName}
             />
 
             <TextInput
@@ -127,10 +74,8 @@ export default function FormAccessibilityPage() {
               label="Email Address"
               value={formData.email}
               onChange={handleChange(FIELD.EMAIL)}
-              onBlur={handleBlur(FIELD.EMAIL)}
               error={errors.email}
               helperText="Enter a valid email address (e.g., name@example.com)."
-              inputRef={refs.email}
             />
 
             <PasswordInput
@@ -138,10 +83,8 @@ export default function FormAccessibilityPage() {
               label="Password"
               value={formData.password}
               onChange={handleChange(FIELD.PASSWORD)}
-              onBlur={handleBlur(FIELD.PASSWORD)}
               error={errors.password}
               helperText="Must be at least 8 characters."
-              inputRef={refs.password}
             />
 
             <SelectInput
@@ -149,11 +92,9 @@ export default function FormAccessibilityPage() {
               label="Job Title"
               value={formData.jobTitle}
               onChange={handleChange(FIELD.JOB_TITLE)}
-              onBlur={handleBlur(FIELD.JOB_TITLE)}
               required
               options={jobTitleOptions}
               error={errors.jobTitle}
-              inputRef={refs.jobTitle}
             />
 
             <CheckboxGroup
@@ -161,9 +102,7 @@ export default function FormAccessibilityPage() {
               options={interestOptions}
               selected={formData.interests}
               onChange={handleMultipleChoice}
-              onBlur={() => handleBlurMultipleChoice()}
               error={errors.interests}
-              inputRef={refs.interests}
             />
 
             <RadioGroup
@@ -171,9 +110,7 @@ export default function FormAccessibilityPage() {
               options={teamSizeOptions}
               selected={formData.teamSize}
               onChange={handleChange(FIELD.TEAM_SIZE)}
-              onBlur={handleBlur(FIELD.TEAM_SIZE)}
               error={errors.teamSize}
-              inputRef={refs.teamSize}
             />
 
             <TextareaInput
@@ -181,7 +118,6 @@ export default function FormAccessibilityPage() {
               label="Additional Comments"
               value={formData.additionalComments}
               onChange={handleAdditionalCommentsChange}
-              onBlur={handleBlur(FIELD.ADDITIONAL_COMMENTS)}
               error={errors.additionalComments}
               helperText={`Optional. Max 500 characters.`}
               maxLength={500}
@@ -190,10 +126,8 @@ export default function FormAccessibilityPage() {
             <CheckboxWithLabel
               accepted={formData.accepted}
               onChange={handleChange(FIELD.ACCEPTED)}
-              onBlur={handleBlur(FIELD.ACCEPTED)}
               error={errors.accepted}
               id="terms"
-              inputRef={refs.accepted}
             />
 
             <button type="submit">Register</button>
