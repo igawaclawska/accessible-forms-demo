@@ -13,6 +13,7 @@ import {
 import { FIELD } from "../constants/formFields";
 import useForm from "../hooks/useForm";
 import { Link } from "react-router-dom";
+import Header from "../components/Header";
 
 export default function FormAccessibilityPage() {
   const {
@@ -35,21 +36,7 @@ export default function FormAccessibilityPage() {
 
   return (
     <>
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.logo} aria-label="BrightPath Solutions Logo">
-            <span className={styles.companyName}>Accessible Forms Demo</span>
-          </div>
-          <nav className={styles.headerNav} aria-label="Main navigation">
-            <Link to="/poor-accessibility" className={styles.headerLink}>
-              Poor Accessibility
-            </Link>
-            <Link to="/" className={styles.headerLink}>
-              Enhanced Accessibility
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
       <main className={styles.main}>
         <h1>User Registration</h1>
         <section aria-labelledby="registrationFormTitle">
