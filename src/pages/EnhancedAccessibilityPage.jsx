@@ -1,5 +1,3 @@
-import { useRef } from "react";
-import useFocusFirstErrorField from "../hooks/useFocusErrorField";
 import styles from "./FormAccessibilityPage.module.css";
 import TextInputBetterA11y from "../components/accessible/TextInputBetterA11y";
 import PasswordInputBetterA11y from "../components/accessible/PasswordInputBetterA11y";
@@ -39,30 +37,6 @@ export default function FormAccessibilityPage() {
     additionalComments: "",
   });
 
-  const refs = {
-    fullName: useRef(null),
-    email: useRef(null),
-    password: useRef(null),
-    jobTitle: useRef(null),
-    interests: interestOptions.map(() => useRef(null)),
-    teamSize: teamSizeOptions.map(() => useRef(null)),
-    additionalComments: useRef(null),
-    accepted: useRef(null),
-  };
-
-  const fieldOrder = [
-    "fullName",
-    "email",
-    "password",
-    "jobTitle",
-    "interests",
-    "teamSize",
-    "additionalComments",
-    "accepted",
-  ];
-
-  useFocusFirstErrorField(errors, refs, fieldOrder);
-
   return (
     <>
       <Header />
@@ -85,7 +59,6 @@ export default function FormAccessibilityPage() {
               onBlur={handleBlur(FIELD.FULL_NAME)}
               required
               error={errors.fullName}
-              inputRef={refs.fullName}
             />
 
             <TextInputBetterA11y
@@ -98,7 +71,6 @@ export default function FormAccessibilityPage() {
               required
               error={errors.email}
               helperText="Enter a valid email address (e.g., name@example.com)."
-              inputRef={refs.email}
             />
 
             <PasswordInputBetterA11y
@@ -111,7 +83,6 @@ export default function FormAccessibilityPage() {
               required
               error={errors.password}
               helperText="Must be at least 8 characters."
-              inputRef={refs.password}
             />
 
             <SelectInputBetterA11y
@@ -124,7 +95,6 @@ export default function FormAccessibilityPage() {
               required
               options={jobTitleOptions}
               error={errors.jobTitle}
-              inputRef={refs.jobTitle}
             />
 
             <CheckboxGroupBetterA11y
@@ -135,7 +105,6 @@ export default function FormAccessibilityPage() {
               onChange={handleMultipleChoice}
               onBlur={() => handleBlurMultipleChoice()}
               error={errors.interests}
-              inputRef={refs.interests}
             />
 
             <RadioGroupBetterA11y
@@ -146,7 +115,6 @@ export default function FormAccessibilityPage() {
               onChange={handleChange(FIELD.TEAM_SIZE)}
               onBlur={handleBlur(FIELD.TEAM_SIZE)}
               error={errors.teamSize}
-              inputRef={refs.teamSize}
             />
 
             <TextareaInputBetterA11y
@@ -170,7 +138,6 @@ export default function FormAccessibilityPage() {
               error={errors.accepted}
               id="terms"
               name="terms"
-              inputRef={refs.accepted}
             />
 
             <button type="submit">Register</button>
