@@ -9,7 +9,6 @@ export default function TextInputBetterA11y({
   onChange,
   onBlur,
   required,
-  autoComplete,
   error,
   helperText,
   inputRef,
@@ -27,7 +26,6 @@ export default function TextInputBetterA11y({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        autoComplete={autoComplete}
         required={required}
         aria-invalid={!!error}
         aria-describedby={`${helperId} ${errorId}`}

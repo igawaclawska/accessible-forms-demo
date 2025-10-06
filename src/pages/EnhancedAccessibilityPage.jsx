@@ -96,7 +96,6 @@ export default function FormAccessibilityPage() {
               value={formData.fullName}
               onChange={handleChange(FIELD.FULL_NAME)}
               onBlur={handleBlur(FIELD.FULL_NAME)}
-              autoComplete="name"
               required
               error={errors.fullName}
               inputRef={refs.fullName}
@@ -109,7 +108,6 @@ export default function FormAccessibilityPage() {
               value={formData.email}
               onChange={handleChange(FIELD.EMAIL)}
               onBlur={handleBlur(FIELD.EMAIL)}
-              autoComplete="email"
               required
               error={errors.email}
               helperText="Enter a valid email address (e.g., name@example.com)."

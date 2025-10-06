@@ -31,7 +31,6 @@ export default function PasswordInputBetterA11y({
           value={value}
           onChange={onChange}
           onBlur={onBlur}
-          autoComplete="new-password"
           required={required}
           aria-invalid={!!error}
           aria-describedby={`${helperId} ${errorId}`}
