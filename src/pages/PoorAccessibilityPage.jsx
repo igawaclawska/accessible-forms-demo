@@ -38,6 +38,7 @@ export default function FormAccessibilityPage() {
     <>
       <Header />
       <main className={styles.main}>
+        <title>Poor Accessibility</title>
         <h1>User Registration</h1>
         <section aria-labelledby="registrationFormTitle">
           <form
