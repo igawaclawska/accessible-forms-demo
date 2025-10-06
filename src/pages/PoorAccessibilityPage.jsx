@@ -1,6 +1,5 @@
 import styles from "./FormAccessibilityPage.module.css";
 import TextInputPoorA11y from "../components/not-accessible/TextInputPoorA11y";
-import PasswordInputPoorA11y from "../components/not-accessible/PasswordInputPoorA11y";
 import SelectInputPoorA11y from "../components/not-accessible/SelectInputPoorA11y";
 import CheckboxGroupPoorA11y from "../components/not-accessible/CheckboxGroupPoorA11y";
 import RadioGroupPoorA11y from "../components/not-accessible/RadioGroupPoorA11y";
@@ -63,6 +62,7 @@ export default function FormAccessibilityPage() {
           >
             <TextInputPoorA11y
               id="fullName"
+              type="text"
               label="Full Name"
               name="fullName"
               value={formData.fullName}
@@ -72,6 +72,7 @@ export default function FormAccessibilityPage() {
 
             <TextInputPoorA11y
               id="email"
+              type="email"
               label="Email Address"
               name="email"
               value={formData.email}
@@ -80,8 +81,9 @@ export default function FormAccessibilityPage() {
               helperText="Enter a valid email address (e.g., name@example.com)."
             />
 
-            <PasswordInputPoorA11y
+            <TextInputPoorA11y
               id="password"
+              type="password"
               label="Password"
               name="password"
               value={formData.password}

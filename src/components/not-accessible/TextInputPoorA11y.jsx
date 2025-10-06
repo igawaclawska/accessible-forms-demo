@@ -3,6 +3,7 @@ import styles from "./TextInputPoorA11y.module.css";
 
 export default function TextInputPoorA11y({
   id,
+  type,
   label,
   name,
   value,
@@ -15,7 +16,7 @@ export default function TextInputPoorA11y({
       <label>{label}</label>
       <input
         id={id}
-        type="text"
+        type={type}
         name={name}
         value={value}
         onChange={onChange}
