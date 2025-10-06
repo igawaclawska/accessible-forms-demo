@@ -12,8 +12,8 @@ import {
 } from "../constants/formOptions";
 import { FIELD } from "../constants/formFields";
 import useForm from "../hooks/useForm";
-import { Link } from "react-router-dom";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function FormAccessibilityPage() {
   const {
@@ -131,28 +131,7 @@ export default function FormAccessibilityPage() {
           </form>
         </section>
       </main>
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p className={styles.footerBrand}>Accessible Forms Demo</p>
-          <nav className={styles.footerNav}>
-            <a
-              href=""
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.footerLink}
-            >
-              GitHub
-            </a>
-            <a href="mailto:info@brightpath.com" className={styles.footerLink}>
-              Contact
-            </a>
-          </nav>
-          <p className={styles.footerCopyright}>
-            &copy; {new Date().getFullYear()} Accessible Forms Demo. All rights
-            reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
