@@ -29,7 +29,7 @@ export default function TextareaInputBetterA11y({
       <label htmlFor={id}>{label}</label>
       <textarea
         id={id}
-        rows={5}
+        rows={2}
         value={value}
         onChange={onChange}
         onBlur={onBlur}
@@ -39,12 +39,8 @@ export default function TextareaInputBetterA11y({
       />
       <HelperTextBetterA11y helperText={helperText} />
 
-      {/* Screen-reader-only counter with 500ms delay */}
-      <div
-        id={helperId}
-        aria-live="polite"
-        style={{ position: "absolute", left: "-9999px" }}
-      >
+      {/* Screen-reader-only counter with a delay */}
+      <div id={helperId} aria-live="polite" className={styles.hiddenHelperText}>
         {delayedHelperText} characters remaining
       </div>
     </div>

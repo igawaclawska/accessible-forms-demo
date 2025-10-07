@@ -123,8 +123,8 @@ export default function FormAccessibilityPage() {
               value={formData.additionalComments}
               onChange={handleAdditionalCommentsChange}
               error={errors.additionalComments}
-              helperText={`Optional. Max 500 characters.`}
-              maxLength={500}
+              helperText={`Optional. Max 100 characters.`}
+              maxLength={100}
             />
 
             <CheckboxWithLabelPoorA11y

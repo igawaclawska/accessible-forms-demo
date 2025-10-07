@@ -130,10 +130,10 @@ export default function FormAccessibilityPage() {
               onChange={handleAdditionalCommentsChange}
               onBlur={handleBlur(FIELD.ADDITIONAL_COMMENTS)}
               error={errors.additionalComments}
-              helperText={`Optional. Max 500 characters. ${
-                500 - (formData.additionalComments?.length || 0)
+              helperText={`Optional. Max 100 characters. ${
+                100 - (formData.additionalComments?.length || 0)
               } characters left.`}
-              maxLength={500}
+              maxLength={100}
             />
 
             <CheckboxWithLabelBetterA11y

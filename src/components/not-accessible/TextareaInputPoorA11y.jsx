@@ -17,7 +17,7 @@ export default function TextareaInputPoorA11y({
       <textarea
         id={id}
         name={name}
-        rows={5}
+        rows={2}
         value={value}
         onChange={onChange}
         maxLength={maxLength}
