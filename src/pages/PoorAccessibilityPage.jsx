@@ -39,7 +39,9 @@ export default function FormAccessibilityPage() {
       <Header />
       <main className={styles.main}>
         <title>Poor Accessibility</title>
-        <h1>User Registration</h1>
+        <h1>
+          Registration Form <br />- poor a11y
+        </h1>
         <section aria-labelledby="registrationFormTitle">
           <form
             onSubmit={handleSubmit((data) =>

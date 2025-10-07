@@ -48,8 +48,12 @@ header {
 
 .headerLink:hover,
 .headerLink:focus {
-  color: #ffd700;
+  color: #e0e0e0;
+}
+
+.active {
   text-decoration: underline;
+  text-underline-offset: 0.25rem;
 }
 
 @media (max-width: 700px) {
