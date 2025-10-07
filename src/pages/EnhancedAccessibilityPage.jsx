@@ -15,8 +15,10 @@ import { FIELD } from "../constants/formFields";
 import useForm from "../hooks/useForm";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 export default function FormAccessibilityPage() {
+  const navigate = useNavigate();
   const {
     formData,
     errors,
@@ -37,6 +39,16 @@ export default function FormAccessibilityPage() {
     additionalComments: "",
   });
 
+  const handleFormSubmit = handleSubmit((data) => {
+    if (
+      Object.values(errors).every(
+        (err) => !err || (Array.isArray(err) && err.length === 0)
+      )
+    ) {
+      navigate("/success", { state: { formData: data } });
+    }
+  });
+
   return (
     <>
       <Header />
@@ -45,14 +57,8 @@ export default function FormAccessibilityPage() {
         <h1>
           Registration Form <br />- better a11y
         </h1>
-        <section aria-labelledby="registrationFormTitle">
-          <form
-            onSubmit={handleSubmit((data) =>
-              alert(JSON.stringify(data, null, 2))
-            )}
-            noValidate
-            className={styles.form}
-          >
+        <section>
+          <form onSubmit={handleFormSubmit} noValidate className={styles.form}>
             <TextInputBetterA11y
               id="fullName"
               label="Full Name"
@@ -60,7 +66,6 @@ export default function FormAccessibilityPage() {
               value={formData.fullName}
               onChange={handleChange(FIELD.FULL_NAME)}
               onBlur={handleBlur(FIELD.FULL_NAME)}
-              required
               error={errors.fullName}
             />
 
@@ -71,7 +76,6 @@ export default function FormAccessibilityPage() {
               value={formData.email}
               onChange={handleChange(FIELD.EMAIL)}
               onBlur={handleBlur(FIELD.EMAIL)}
-              required
               error={errors.email}
               helperText="Enter a valid email address (e.g., name@example.com)."
             />
@@ -83,7 +87,6 @@ export default function FormAccessibilityPage() {
               value={formData.password}
               onChange={handleChange(FIELD.PASSWORD)}
               onBlur={handleBlur(FIELD.PASSWORD)}
-              required
               error={errors.password}
               helperText="Must be at least 8 characters."
             />
@@ -95,7 +98,6 @@ export default function FormAccessibilityPage() {
               value={formData.jobTitle}
               onChange={handleChange(FIELD.JOB_TITLE)}
               onBlur={handleBlur(FIELD.JOB_TITLE)}
-              required
               options={jobTitleOptions}
               error={errors.jobTitle}
             />

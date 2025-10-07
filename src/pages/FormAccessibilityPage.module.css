@@ -1,11 +1,13 @@
 main {
   padding: 2rem;
   background: #fff;
+  height: fit-content;
+  min-height: calc(100vh - 300px);
 }
 
 h1 {
   margin-bottom: 4rem;
-  font-size: 2.75rem;
+  font-size: 2.5rem;
   line-height: 140%;
 }
 

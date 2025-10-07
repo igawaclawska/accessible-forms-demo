@@ -1,4 +1,5 @@
 import styles from "./FormAccessibilityPage.module.css";
+import { useNavigate } from "react-router-dom";
 import TextInputPoorA11y from "../components/not-accessible/TextInputPoorA11y";
 import SelectInputPoorA11y from "../components/not-accessible/SelectInputPoorA11y";
 import CheckboxGroupPoorA11y from "../components/not-accessible/CheckboxGroupPoorA11y";
@@ -16,6 +17,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 
 export default function FormAccessibilityPage() {
+  const navigate = useNavigate();
   const {
     formData,
     errors,
@@ -34,6 +36,16 @@ export default function FormAccessibilityPage() {
     additionalComments: "",
   });
 
+  const handleFormSubmit = handleSubmit((data) => {
+    if (
+      Object.values(errors).every(
+        (err) => !err || (Array.isArray(err) && err.length === 0)
+      )
+    ) {
+      navigate("/success", { state: { formData: data } });
+    }
+  });
+
   return (
     <>
       <Header />
@@ -42,14 +54,8 @@ export default function FormAccessibilityPage() {
         <h1>
           Registration Form <br />- poor a11y
         </h1>
-        <section aria-labelledby="registrationFormTitle">
-          <form
-            onSubmit={handleSubmit((data) =>
-              alert(JSON.stringify(data, null, 2))
-            )}
-            noValidate
-            className={styles.form}
-          >
+        <section>
+          <form onSubmit={handleFormSubmit} noValidate className={styles.form}>
             <TextInputPoorA11y
               id="fullName"
               type="text"
@@ -88,7 +94,6 @@ export default function FormAccessibilityPage() {
               name="jobTitle"
               value={formData.jobTitle}
               onChange={handleChange(FIELD.JOB_TITLE)}
-              required
               options={jobTitleOptions}
               error={errors.jobTitle}
             />
