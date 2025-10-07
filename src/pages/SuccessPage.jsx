@@ -7,6 +7,7 @@ export default function SuccessPage() {
     <>
       <Header />
       <main className={styles.main}>
+        <title>Success Page</title>
         <h1 id="successTitle">Registration Successful!</h1>
         <p>
           We're excited to welcome you! Your registration has been received and

@@ -24,8 +24,6 @@ export default function FormAccessibilityPage() {
     errors,
     handleChange,
     handleMultipleChoice,
-    handleBlur,
-    handleBlurMultipleChoice,
     handleAdditionalCommentsChange,
     handleSubmit,
   } = useForm({
@@ -54,9 +52,7 @@ export default function FormAccessibilityPage() {
       <Header />
       <main className={styles.main}>
         <title>Better Accessibility</title>
-        <h1>
-          Registration Form <br />- better a11y
-        </h1>
+        <h1>Form - better a11y</h1>
         <section>
           <form onSubmit={handleFormSubmit} noValidate className={styles.form}>
             <TextInputBetterA11y
@@ -65,7 +61,6 @@ export default function FormAccessibilityPage() {
               name="fullName"
               value={formData.fullName}
               onChange={handleChange(FIELD.FULL_NAME)}
-              onBlur={handleBlur(FIELD.FULL_NAME)}
               error={errors.fullName}
             />
 
@@ -75,7 +70,6 @@ export default function FormAccessibilityPage() {
               name="email"
               value={formData.email}
               onChange={handleChange(FIELD.EMAIL)}
-              onBlur={handleBlur(FIELD.EMAIL)}
               error={errors.email}
               helperText="Enter a valid email address (e.g., name@example.com)."
             />
@@ -86,7 +80,6 @@ export default function FormAccessibilityPage() {
               name="password"
               value={formData.password}
               onChange={handleChange(FIELD.PASSWORD)}
-              onBlur={handleBlur(FIELD.PASSWORD)}
               error={errors.password}
               helperText="Must be at least 8 characters."
             />
@@ -97,7 +90,6 @@ export default function FormAccessibilityPage() {
               name="jobTitle"
               value={formData.jobTitle}
               onChange={handleChange(FIELD.JOB_TITLE)}
-              onBlur={handleBlur(FIELD.JOB_TITLE)}
               options={jobTitleOptions}
               error={errors.jobTitle}
             />
@@ -108,7 +100,6 @@ export default function FormAccessibilityPage() {
               options={interestOptions}
               selected={formData.interests}
               onChange={handleMultipleChoice}
-              onBlur={() => handleBlurMultipleChoice()}
               error={errors.interests}
             />
 
@@ -118,7 +109,6 @@ export default function FormAccessibilityPage() {
               options={teamSizeOptions}
               selected={formData.teamSize}
               onChange={handleChange(FIELD.TEAM_SIZE)}
-              onBlur={handleBlur(FIELD.TEAM_SIZE)}
               error={errors.teamSize}
             />
 
@@ -128,9 +118,8 @@ export default function FormAccessibilityPage() {
               name="additionalComments"
               value={formData.additionalComments}
               onChange={handleAdditionalCommentsChange}
-              onBlur={handleBlur(FIELD.ADDITIONAL_COMMENTS)}
               error={errors.additionalComments}
-              helperText={`Optional. Max 100 characters. ${
+              helperText={`Optional. 100 out of ${
                 100 - (formData.additionalComments?.length || 0)
               } characters left.`}
               maxLength={100}
@@ -139,7 +128,6 @@ export default function FormAccessibilityPage() {
             <CheckboxWithLabelBetterA11y
               accepted={formData.accepted}
               onChange={handleChange(FIELD.ACCEPTED)}
-              onBlur={handleBlur(FIELD.ACCEPTED)}
               error={errors.accepted}
               id="terms"
               name="terms"
