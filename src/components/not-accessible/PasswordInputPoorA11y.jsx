@@ -18,6 +18,7 @@ export default function PasswordInputPoorA11y({
       <input
         ref={inputRef}
         id={id}
+        type="password"
         name={name}
         value={value}
         onChange={onChange}

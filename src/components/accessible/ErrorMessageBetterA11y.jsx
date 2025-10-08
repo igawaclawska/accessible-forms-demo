@@ -4,7 +4,7 @@ import styles from "./ErrorMessageBetterA11y.module.css";
 export default function ErrorMessageBetterA11y({ error, id }) {
   if (!error) return null;
   return (
-    <div className={styles.errorMsg} id={id}>
+    <div className={styles.errorMsg} id={id} aria-live="polite" role="alert">
       <span className={styles.errorSpan} aria-hidden="true">
         <ErrorIcon />
       </span>

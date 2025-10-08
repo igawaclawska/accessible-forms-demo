@@ -6,7 +6,6 @@ export default function CheckboxWithLabelBetterA11y({
   onChange,
   onBlur,
   error,
-  required = true,
   id = "terms",
   inputRef,
 }) {
@@ -22,7 +21,6 @@ export default function CheckboxWithLabelBetterA11y({
           checked={accepted}
           onChange={onChange}
           onBlur={onBlur}
-          required={required}
           aria-invalid={!!error}
           aria-describedby={`${errorId}`}
         />

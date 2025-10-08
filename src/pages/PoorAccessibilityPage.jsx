@@ -1,6 +1,6 @@
 import styles from "./FormAccessibilityPage.module.css";
+import { useNavigate } from "react-router-dom";
 import TextInputPoorA11y from "../components/not-accessible/TextInputPoorA11y";
-import PasswordInputPoorA11y from "../components/not-accessible/PasswordInputPoorA11y";
 import SelectInputPoorA11y from "../components/not-accessible/SelectInputPoorA11y";
 import CheckboxGroupPoorA11y from "../components/not-accessible/CheckboxGroupPoorA11y";
 import RadioGroupPoorA11y from "../components/not-accessible/RadioGroupPoorA11y";
@@ -13,9 +13,11 @@ import {
 } from "../constants/formOptions";
 import { FIELD } from "../constants/formFields";
 import useForm from "../hooks/useForm";
-import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function FormAccessibilityPage() {
+  const navigate = useNavigate();
   const {
     formData,
     errors,
@@ -34,35 +36,27 @@ export default function FormAccessibilityPage() {
     additionalComments: "",
   });
 
+  const handleFormSubmit = handleSubmit((data) => {
+    if (
+      Object.values(errors).every(
+        (err) => !err || (Array.isArray(err) && err.length === 0)
+      )
+    ) {
+      navigate("/success", { state: { formData: data } });
+    }
+  });
+
   return (
     <>
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.logo} aria-label="BrightPath Solutions Logo">
-            <span className={styles.companyName}>Accessible Forms Demo</span>
-          </div>
-          <nav className={styles.headerNav} aria-label="Main navigation">
-            <Link to="/poor-accessibility" className={styles.headerLink}>
-              Poor Accessibility
-            </Link>
-            <Link to="/" className={styles.headerLink}>
-              Enhanced Accessibility
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
       <main className={styles.main}>
-        <h1>User Registration</h1>
-        <section aria-labelledby="registrationFormTitle">
-          <form
-            onSubmit={handleSubmit((data) =>
-              alert(JSON.stringify(data, null, 2))
-            )}
-            noValidate
-            className={styles.form}
-          >
+        <title>Poor Accessibility</title>
+        <h1>Form - poor a11y</h1>
+        <section>
+          <form onSubmit={handleFormSubmit} noValidate className={styles.form}>
             <TextInputPoorA11y
               id="fullName"
+              type="text"
               label="Full Name"
               name="fullName"
               value={formData.fullName}
@@ -72,6 +66,7 @@ export default function FormAccessibilityPage() {
 
             <TextInputPoorA11y
               id="email"
+              type="email"
               label="Email Address"
               name="email"
               value={formData.email}
@@ -80,8 +75,9 @@ export default function FormAccessibilityPage() {
               helperText="Enter a valid email address (e.g., name@example.com)."
             />
 
-            <PasswordInputPoorA11y
+            <TextInputPoorA11y
               id="password"
+              type="password"
               label="Password"
               name="password"
               value={formData.password}
@@ -96,7 +92,6 @@ export default function FormAccessibilityPage() {
               name="jobTitle"
               value={formData.jobTitle}
               onChange={handleChange(FIELD.JOB_TITLE)}
-              required
               options={jobTitleOptions}
               error={errors.jobTitle}
             />
@@ -126,8 +121,8 @@ export default function FormAccessibilityPage() {
               value={formData.additionalComments}
               onChange={handleAdditionalCommentsChange}
               error={errors.additionalComments}
-              helperText={`Optional. Max 500 characters.`}
-              maxLength={500}
+              helperText={`Optional. Max 100 characters.`}
+              maxLength={100}
             />
 
             <CheckboxWithLabelPoorA11y
@@ -142,28 +137,7 @@ export default function FormAccessibilityPage() {
           </form>
         </section>
       </main>
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p className={styles.footerBrand}>Accessible Forms Demo</p>
-          <nav className={styles.footerNav}>
-            <a
-              href=""
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.footerLink}
-            >
-              GitHub
-            </a>
-            <a href="mailto:info@brightpath.com" className={styles.footerLink}>
-              Contact
-            </a>
-          </nav>
-          <p className={styles.footerCopyright}>
-            &copy; {new Date().getFullYear()} Accessible Forms Demo. All rights
-            reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

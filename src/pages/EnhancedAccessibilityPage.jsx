@@ -1,5 +1,3 @@
-import { useRef } from "react";
-import useFocusFirstErrorField from "../hooks/useFocusErrorField";
 import styles from "./FormAccessibilityPage.module.css";
 import TextInputBetterA11y from "../components/accessible/TextInputBetterA11y";
 import PasswordInputBetterA11y from "../components/accessible/PasswordInputBetterA11y";
@@ -15,16 +13,17 @@ import {
 } from "../constants/formOptions";
 import { FIELD } from "../constants/formFields";
 import useForm from "../hooks/useForm";
-import { Link } from "react-router-dom";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 export default function FormAccessibilityPage() {
+  const navigate = useNavigate();
   const {
     formData,
     errors,
     handleChange,
     handleMultipleChoice,
-    handleBlur,
-    handleBlurMultipleChoice,
     handleAdditionalCommentsChange,
     handleSubmit,
   } = useForm({
@@ -38,68 +37,31 @@ export default function FormAccessibilityPage() {
     additionalComments: "",
   });
 
-  const refs = {
-    fullName: useRef(null),
-    email: useRef(null),
-    password: useRef(null),
-    jobTitle: useRef(null),
-    interests: interestOptions.map(() => useRef(null)),
-    teamSize: teamSizeOptions.map(() => useRef(null)),
-    additionalComments: useRef(null),
-    accepted: useRef(null),
-  };
-
-  const fieldOrder = [
-    "fullName",
-    "email",
-    "password",
-    "jobTitle",
-    "interests",
-    "teamSize",
-    "additionalComments",
-    "accepted",
-  ];
-
-  useFocusFirstErrorField(errors, refs, fieldOrder);
+  const handleFormSubmit = handleSubmit((data) => {
+    if (
+      Object.values(errors).every(
+        (err) => !err || (Array.isArray(err) && err.length === 0)
+      )
+    ) {
+      navigate("/success", { state: { formData: data } });
+    }
+  });
 
   return (
     <>
-      <header className={styles.header}>
-        <div className={styles.headerContent}>
-          <div className={styles.logo} aria-label="BrightPath Solutions Logo">
-            <span className={styles.companyName}>Accessible Forms Demo</span>
-          </div>
-          <nav className={styles.headerNav} aria-label="Main navigation">
-            <Link to="/poor-accessibility" className={styles.headerLink}>
-              Poor Accessibility
-            </Link>
-            <Link to="/" className={styles.headerLink}>
-              Enhanced Accessibility
-            </Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
       <main className={styles.main}>
-        <h1>User Registration</h1>
-        <section aria-labelledby="registrationFormTitle">
-          <form
-            onSubmit={handleSubmit((data) =>
-              alert(JSON.stringify(data, null, 2))
-            )}
-            noValidate
-            className={styles.form}
-          >
+        <title>Better Accessibility</title>
+        <h1>Form - better a11y</h1>
+        <section>
+          <form onSubmit={handleFormSubmit} noValidate className={styles.form}>
             <TextInputBetterA11y
               id="fullName"
               label="Full Name"
               name="fullName"
               value={formData.fullName}
               onChange={handleChange(FIELD.FULL_NAME)}
-              onBlur={handleBlur(FIELD.FULL_NAME)}
-              autoComplete="name"
-              required
               error={errors.fullName}
-              inputRef={refs.fullName}
             />
 
             <TextInputBetterA11y
@@ -108,12 +70,8 @@ export default function FormAccessibilityPage() {
               name="email"
               value={formData.email}
               onChange={handleChange(FIELD.EMAIL)}
-              onBlur={handleBlur(FIELD.EMAIL)}
-              autoComplete="email"
-              required
               error={errors.email}
               helperText="Enter a valid email address (e.g., name@example.com)."
-              inputRef={refs.email}
             />
 
             <PasswordInputBetterA11y
@@ -122,11 +80,8 @@ export default function FormAccessibilityPage() {
               name="password"
               value={formData.password}
               onChange={handleChange(FIELD.PASSWORD)}
-              onBlur={handleBlur(FIELD.PASSWORD)}
-              required
               error={errors.password}
               helperText="Must be at least 8 characters."
-              inputRef={refs.password}
             />
 
             <SelectInputBetterA11y
@@ -135,11 +90,8 @@ export default function FormAccessibilityPage() {
               name="jobTitle"
               value={formData.jobTitle}
               onChange={handleChange(FIELD.JOB_TITLE)}
-              onBlur={handleBlur(FIELD.JOB_TITLE)}
-              required
               options={jobTitleOptions}
               error={errors.jobTitle}
-              inputRef={refs.jobTitle}
             />
 
             <CheckboxGroupBetterA11y
@@ -148,9 +100,7 @@ export default function FormAccessibilityPage() {
               options={interestOptions}
               selected={formData.interests}
               onChange={handleMultipleChoice}
-              onBlur={() => handleBlurMultipleChoice()}
               error={errors.interests}
-              inputRef={refs.interests}
             />
 
             <RadioGroupBetterA11y
@@ -159,9 +109,7 @@ export default function FormAccessibilityPage() {
               options={teamSizeOptions}
               selected={formData.teamSize}
               onChange={handleChange(FIELD.TEAM_SIZE)}
-              onBlur={handleBlur(FIELD.TEAM_SIZE)}
               error={errors.teamSize}
-              inputRef={refs.teamSize}
             />
 
             <TextareaInputBetterA11y
@@ -170,50 +118,26 @@ export default function FormAccessibilityPage() {
               name="additionalComments"
               value={formData.additionalComments}
               onChange={handleAdditionalCommentsChange}
-              onBlur={handleBlur(FIELD.ADDITIONAL_COMMENTS)}
               error={errors.additionalComments}
-              helperText={`Optional. Max 500 characters. ${
-                500 - (formData.additionalComments?.length || 0)
+              helperText={`Optional. 100 out of ${
+                100 - (formData.additionalComments?.length || 0)
               } characters left.`}
-              maxLength={500}
+              maxLength={100}
             />
 
             <CheckboxWithLabelBetterA11y
               accepted={formData.accepted}
               onChange={handleChange(FIELD.ACCEPTED)}
-              onBlur={handleBlur(FIELD.ACCEPTED)}
               error={errors.accepted}
               id="terms"
               name="terms"
-              inputRef={refs.accepted}
             />
 
             <button type="submit">Register</button>
           </form>
         </section>
       </main>
-      <footer className={styles.footer}>
-        <div className={styles.footerContent}>
-          <p className={styles.footerBrand}>Accessible Forms Demo</p>
-          <nav className={styles.footerNav}>
-            <a
-              href=""
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.footerLink}
-            >
-              GitHub
-            </a>
-            <a href="mailto:info@brightpath.com" className={styles.footerLink}>
-              Contact
-            </a>
-          </nav>
-          <p className={styles.footerCopyright}>
-            &copy; {new Date().getFullYear()} Accessible Forms Demo. All rights
-            reserved.
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

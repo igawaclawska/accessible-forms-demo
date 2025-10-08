@@ -7,7 +7,6 @@ export default function SelectInputBetterA11y({
   value,
   onChange,
   onBlur,
-  required,
   options,
   error,
   inputRef,
@@ -23,7 +22,6 @@ export default function SelectInputBetterA11y({
         value={value}
         onChange={onChange}
         onBlur={onBlur}
-        required={required}
         aria-invalid={!!error}
         aria-describedby={`${errorId}`}
       >
