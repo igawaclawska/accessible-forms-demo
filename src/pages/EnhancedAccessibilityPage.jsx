@@ -27,10 +27,10 @@ export default function FormAccessibilityPage() {
     handleAdditionalCommentsChange,
     handleSubmit,
   } = useForm({
-    fullName: "",
+    // fullName: "",
     email: "",
     password: "",
-    jobTitle: "",
+    // jobTitle: "",
     accepted: false,
     interests: [],
     teamSize: "",
@@ -60,14 +60,14 @@ export default function FormAccessibilityPage() {
             noValidate
             className={styles.form}
           >
-            <TextInputBetterA11y
+            {/* <TextInputBetterA11y
               id="fullName"
               label="Full Name"
               name="fullName"
               value={formData.fullName}
               onChange={handleChange(FIELD.FULL_NAME)}
               error={errors.fullName}
-            />
+            /> */}
 
             <TextInputBetterA11y
               id="email"
@@ -89,7 +89,7 @@ export default function FormAccessibilityPage() {
               helperText="Must be at least 8 characters."
             />
 
-            <SelectInputBetterA11y
+            {/* <SelectInputBetterA11y
               id="jobTitle"
               label="Job Title"
               name="jobTitle"
@@ -97,7 +97,7 @@ export default function FormAccessibilityPage() {
               onChange={handleChange(FIELD.JOB_TITLE)}
               options={jobTitleOptions}
               error={errors.jobTitle}
-            />
+            /> */}
 
             <CheckboxGroupBetterA11y
               label="Select your interests:"

@@ -1,8 +1,8 @@
 export const validate = (values) => {
   const errors = {};
-  if (!values.fullName) {
-    errors.fullName = "Full name is required";
-  }
+  // if (!values.fullName) {
+  //   errors.fullName = "Full name is required";
+  // }
   if (!values.email) {
     errors.email = "Email is required";
   } else if (!/\S+@\S+\.\S+/.test(values.email)) {
@@ -17,9 +17,9 @@ export const validate = (values) => {
       errors.password = "Please use a valid password format.";
     }
   }
-  if (!values.jobTitle) {
-    errors.jobTitle = "Please select a job title";
-  }
+  // if (!values.jobTitle) {
+  //   errors.jobTitle = "Please select a job title";
+  // }
   if (!values.accepted) {
     errors.accepted = "You must accept the terms";
   }
