@@ -53,7 +53,12 @@ export default function FormAccessibilityPage() {
         <title>Poor Accessibility</title>
         <h1>Form - poor a11y</h1>
         <section>
-          <form onSubmit={handleFormSubmit} noValidate className={styles.form}>
+          <form
+            autoComplete="off"
+            onSubmit={handleFormSubmit}
+            noValidate
+            className={styles.form}
+          >
             <TextInputPoorA11y
               id="fullName"
               type="text"

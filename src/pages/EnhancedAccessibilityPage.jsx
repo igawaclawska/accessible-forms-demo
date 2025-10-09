@@ -54,7 +54,12 @@ export default function FormAccessibilityPage() {
         <title>Better Accessibility</title>
         <h1>Form - better a11y</h1>
         <section>
-          <form onSubmit={handleFormSubmit} noValidate className={styles.form}>
+          <form
+            autoComplete="off"
+            onSubmit={handleFormSubmit}
+            noValidate
+            className={styles.form}
+          >
             <TextInputBetterA11y
               id="fullName"
               label="Full Name"
