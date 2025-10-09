@@ -1,16 +1,11 @@
 import styles from "./FormAccessibilityPage.module.css";
 import TextInputBetterA11y from "../components/accessible/TextInputBetterA11y";
 import PasswordInputBetterA11y from "../components/accessible/PasswordInputBetterA11y";
-import SelectInputBetterA11y from "../components/accessible/SelectInputBetterA11y";
 import CheckboxGroupBetterA11y from "../components/accessible/CheckboxGroupBetterA11y";
 import RadioGroupBetterA11y from "../components/accessible/RadioGroupBetterA11y";
 import TextareaInputBetterA11y from "../components/accessible/TextareaInputBetterA11y";
 import CheckboxWithLabelBetterA11y from "../components/accessible/CheckboxWithLabelBetterA11y";
-import {
-  teamSizeOptions,
-  interestOptions,
-  jobTitleOptions,
-} from "../constants/formOptions";
+import { teamSizeOptions, interestOptions } from "../constants/formOptions";
 import { FIELD } from "../constants/formFields";
 import useForm from "../hooks/useForm";
 import Header from "../components/Header";
@@ -27,10 +22,8 @@ export default function FormAccessibilityPage() {
     handleAdditionalCommentsChange,
     handleSubmit,
   } = useForm({
-    // fullName: "",
     email: "",
     password: "",
-    // jobTitle: "",
     accepted: false,
     interests: [],
     teamSize: "",
@@ -60,15 +53,6 @@ export default function FormAccessibilityPage() {
             noValidate
             className={styles.form}
           >
-            {/* <TextInputBetterA11y
-              id="fullName"
-              label="Full Name"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange(FIELD.FULL_NAME)}
-              error={errors.fullName}
-            /> */}
-
             <TextInputBetterA11y
               id="email"
               label="Email Address"
@@ -88,16 +72,6 @@ export default function FormAccessibilityPage() {
               error={errors.password}
               helperText="Must be at least 8 characters."
             />
-
-            {/* <SelectInputBetterA11y
-              id="jobTitle"
-              label="Job Title"
-              name="jobTitle"
-              value={formData.jobTitle}
-              onChange={handleChange(FIELD.JOB_TITLE)}
-              options={jobTitleOptions}
-              error={errors.jobTitle}
-            /> */}
 
             <CheckboxGroupBetterA11y
               label="Select your interests:"
