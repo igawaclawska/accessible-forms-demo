@@ -98,9 +98,9 @@ export default function FormAccessibilityPage() {
               value={formData.additionalComments}
               onChange={handleAdditionalCommentsChange}
               error={errors.additionalComments}
-              helperText={`Optional. 100 out of ${
+              helperText={`Optional. ${
                 100 - (formData.additionalComments?.length || 0)
-              } characters left.`}
+              } out of 100 characters left.`}
               maxLength={100}
             />
 
