@@ -1,5 +1,4 @@
 import styles from "./TextareaInputBetterA11y.module.css";
-import HelperTextBetterA11y from "./HelperTextBetterA11y";
 import { useEffect, useState } from "react";
 
 export default function TextareaInputBetterA11y({
@@ -32,16 +31,22 @@ export default function TextareaInputBetterA11y({
         rows={2}
         value={value}
         onChange={onChange}
-        onBlur={onBlur}
         aria-describedby={`${helperId} ${errorId}`}
         aria-invalid={!!error}
         maxLength={maxLength}
       />
-      <HelperTextBetterA11y helperText={helperText} />
+
+      <div aria-hidden="true" className={styles.helperText}>
+        {helperText}
+      </div>
 
       {/* Screen-reader-only counter with a delay */}
-      <div id={helperId} aria-live="polite" className={styles.hiddenHelperText}>
-        {delayedHelperText} characters remaining
+      <div
+        id={helperId}
+        aria-live="pollite"
+        className={styles.hiddenHelperText}
+      >
+        {delayedHelperText}
       </div>
     </div>
   );
