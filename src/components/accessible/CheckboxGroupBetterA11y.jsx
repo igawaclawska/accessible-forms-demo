@@ -9,6 +9,7 @@ export default function CheckboxGroupBetterA11y({
   onChange,
   onBlur,
   error,
+  prop,
   inputRef,
 }) {
   const groupName = name || label.replace(/\s/g, "").toLowerCase();
