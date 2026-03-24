@@ -6,7 +6,6 @@ export default function TextareaInputBetterA11y({
   label,
   value,
   onChange,
-  onBlur,
   error,
   helperText,
   maxLength,
